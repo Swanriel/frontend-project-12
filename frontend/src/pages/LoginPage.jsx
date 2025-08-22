@@ -2,7 +2,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
 
 const LoginSchema = Yup.object().shape({
@@ -11,7 +11,6 @@ const LoginSchema = Yup.object().shape({
     .max(20, 'Слишком длинное имя')
     .required('Обязательное поле'),
   password: Yup.string()
-    .min(5, 'Пароль должен быть не менее 5 символов')
     .required('Обязательное поле')
 });
 
@@ -36,9 +35,9 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
+    <div style={{ maxWidth: '400px', margin: '50px auto', padding: '20px' }}>
       <h2>Авторизация</h2>
-      {error && <div style={{ color: 'red' }}>{error}</div>}
+      {error && <div style={{ color: 'red', marginBottom: '15px' }}>{error}</div>}
       
       <Formik
         initialValues={{ username: '', password: '' }}
@@ -47,32 +46,42 @@ const LoginPage = () => {
       >
         {({ isSubmitting }) => (
           <Form>
-            <div>
+            <div style={{ marginBottom: '15px' }}>
               <label htmlFor="username">Имя пользователя:</label>
               <Field 
                 type="text" 
                 id="username" 
                 name="username" 
+                style={{ width: '100%', padding: '8px' }}
               />
               <ErrorMessage name="username" component="div" style={{ color: 'red' }} />
             </div>
 
-            <div>
+            <div style={{ marginBottom: '15px' }}>
               <label htmlFor="password">Пароль:</label>
               <Field 
                 type="password" 
                 id="password" 
                 name="password" 
+                style={{ width: '100%', padding: '8px' }}
               />
               <ErrorMessage name="password" component="div" style={{ color: 'red' }} />
             </div>
 
-            <button type="submit" disabled={isSubmitting}>
+            <button 
+              type="submit" 
+              disabled={isSubmitting}
+              style={{ width: '100%', padding: '10px', marginBottom: '15px' }}
+            >
               {isSubmitting ? 'Вход...' : 'Войти'}
             </button>
           </Form>
         )}
       </Formik>
+
+      <p style={{ textAlign: 'center' }}>
+        Нет аккаунта? <Link to="/signup">Зарегистрироваться</Link>
+      </p>
     </div>
   );
 };

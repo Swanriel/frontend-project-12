@@ -27,10 +27,10 @@ export const AuthProvider = ({ children }) => {
     setUser({ token });
   };
 
-  const logout = () => {
-    localStorage.removeItem('token');
-    setUser(null);
-  };
+const logout = () => {
+  localStorage.removeItem('token');
+  setUser(null);
+};
 
   const value = {
     user,
