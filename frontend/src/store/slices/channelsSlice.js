@@ -9,6 +9,42 @@ export const fetchChannels = createAsyncThunk(
   }
 );
 
+export const addChannel = createAsyncThunk(
+  'channels/addChannel',
+  async (channelData, { rejectWithValue }) => {
+    try {
+      const response = await api.post('/channels', channelData);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
+export const removeChannel = createAsyncThunk(
+  'channels/removeChannel',
+  async (channelId, { rejectWithValue }) => {
+    try {
+      await api.delete(`/channels/${channelId}`);
+      return channelId;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
+export const renameChannel = createAsyncThunk(
+  'channels/renameChannel',
+  async ({ id, name }, { rejectWithValue }) => {
+    try {
+      const response = await api.patch(`/channels/${id}`, { name });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
 const channelsSlice = createSlice({
   name: 'channels',
   initialState: {
@@ -30,11 +66,29 @@ const channelsSlice = createSlice({
       .addCase(fetchChannels.fulfilled, (state, action) => {
         state.loading = false;
         state.items = action.payload;
-        state.currentChannelId = action.payload[0]?.id || null;
+        if (!state.currentChannelId && action.payload.length > 0) {
+          state.currentChannelId = action.payload[0].id;
+        }
       })
       .addCase(fetchChannels.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
+      })
+      .addCase(addChannel.fulfilled, (state, action) => {
+        state.items.push(action.payload);
+        state.currentChannelId = action.payload.id;
+      })
+      .addCase(removeChannel.fulfilled, (state, action) => {
+        state.items = state.items.filter(channel => channel.id !== action.payload);
+        if (state.currentChannelId === action.payload) {
+          state.currentChannelId = state.items[0]?.id || null;
+        }
+      })
+      .addCase(renameChannel.fulfilled, (state, action) => {
+        const channel = state.items.find(ch => ch.id === action.payload.id);
+        if (channel) {
+          channel.name = action.payload.name;
+        }
       });
   }
 });

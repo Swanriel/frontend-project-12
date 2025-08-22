@@ -1,46 +1,56 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchChannels, setCurrentChannel } from '../store/slices/channelsSlice';
-import { fetchMessages, sendNewMessage } from '../store/slices/messagesSlice';
-import useSocket from '../hooks/useSocket';
+import { Button } from 'react-bootstrap';
+import { fetchChannels, setCurrentChannel } from '../store/slices/channelsSlice'; // Добавить setCurrentChannel
+import { fetchMessages } from '../store/slices/messagesSlice';
+import ChannelDropdown from '../components/ChannelDropdown';
+import AddChannelModal from '../components/modals/AddChannelModal';
+import RemoveChannelModal from '../components/modals/RemoveChannelModal';
+import RenameChannelModal from '../components/modals/RenameChannelModal';
+import ChatArea from '../components/ChatArea';
 
 const MainPage = () => {
   const dispatch = useDispatch();
   const { items: channels, currentChannelId } = useSelector(state => state.channels);
-  const { items: messages, sending } = useSelector(state => state.messages);
-  const [newMessage, setNewMessage] = useState('');
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showRemoveModal, setShowRemoveModal] = useState(false);
+  const [showRenameModal, setShowRenameModal] = useState(false);
+  const [selectedChannel, setSelectedChannel] = useState(null);
 
   useEffect(() => {
     dispatch(fetchChannels());
     dispatch(fetchMessages());
   }, [dispatch]);
 
-  const currentChannel = channels.find(channel => channel.id === currentChannelId);
-  const channelMessages = messages.filter(message => message.channelId === currentChannelId);
+  const handleSelectChannel = (channel) => {
+    dispatch(setCurrentChannel(channel.id));
+  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!newMessage.trim() || !currentChannelId || sending) return;
+  const handleRenameChannel = (channel) => {
+    setSelectedChannel(channel);
+    setShowRenameModal(true);
+  };
 
-    try {
-      await dispatch(sendNewMessage({
-        body: newMessage.trim(),
-        channelId: currentChannelId
-      })).unwrap();
-      
-      setNewMessage('');
-      console.log('✅ Сообщение отправлено через POST');
-    } catch (error) {
-      console.error('❌ Ошибка отправки сообщения:', error);
-      alert('Ошибка отправки сообщения: ' + (error.message || 'Неизвестная ошибка'));
-    }
+  const handleRemoveChannel = (channel) => {
+    setSelectedChannel(channel);
+    setShowRemoveModal(true);
   };
 
   return (
     <div style={{ display: 'flex', height: '100vh' }}>
       {/* Список каналов */}
       <div style={{ width: '250px', borderRight: '1px solid #ccc', padding: '10px' }}>
-        <h3>Каналы</h3>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+          <h3>Каналы</h3>
+          <Button 
+            variant="outline-primary" 
+            size="sm"
+            onClick={() => setShowAddModal(true)}
+          >
+            +
+          </Button>
+        </div>
+        
         <ul style={{ listStyle: 'none', padding: 0 }}>
           {channels.map(channel => (
             <li 
@@ -48,52 +58,42 @@ const MainPage = () => {
               style={{ 
                 padding: '8px', 
                 cursor: 'pointer',
-                backgroundColor: channel.id === currentChannelId ? '#e3f2fd' : 'transparent'
+                backgroundColor: channel.id === currentChannelId ? '#e3f2fd' : 'transparent',
+                borderRadius: '4px',
+                marginBottom: '4px'
               }}
-              onClick={() => dispatch(setCurrentChannel(channel.id))}
             >
-              # {channel.name}
+              <ChannelDropdown 
+                channel={channel}
+                onSelect={handleSelectChannel}
+                onRename={handleRenameChannel}
+                onRemove={handleRemoveChannel}
+              />
             </li>
           ))}
         </ul>
       </div>
 
-      {/* Чат */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-        <div style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
-          <h3># {currentChannel?.name || 'Выберите канал'}</h3>
-        </div>
-        
-        {/* Сообщения */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: '10px' }}>
-          {channelMessages.map(message => (
-            <div key={message.id} style={{ marginBottom: '10px' }}>
-              <strong>{message.username}:</strong> {message.body}
-            </div>
-          ))}
-        </div>
+      {/* Область чата */}
+      <ChatArea />
 
-        {/* Форма отправки сообщения */}
-        <form onSubmit={handleSubmit} style={{ padding: '10px', borderTop: '1px solid #ccc' }}>
-          <div style={{ display: 'flex', gap: '10px' }}>
-            <input
-              type="text"
-              placeholder="Введите сообщение..."
-              value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
-              style={{ flex: 1, padding: '8px' }}
-              disabled={!currentChannelId || sending}
-            />
-            <button 
-              type="submit" 
-              disabled={!newMessage.trim() || !currentChannelId || sending}
-              style={{ padding: '8px 16px' }}
-            >
-              {sending ? 'Отправка...' : 'Отправить'}
-            </button>
-          </div>
-        </form>
-      </div>
+      {/* Модальные окна */}
+      <AddChannelModal 
+        show={showAddModal}
+        onHide={() => setShowAddModal(false)}
+      />
+      
+      <RemoveChannelModal 
+        show={showRemoveModal}
+        onHide={() => setShowRemoveModal(false)}
+        channel={selectedChannel}
+      />
+      
+      <RenameChannelModal 
+        show={showRenameModal}
+        onHide={() => setShowRenameModal(false)}
+        channel={selectedChannel}
+      />
     </div>
   );
 };
