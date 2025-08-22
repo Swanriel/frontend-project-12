@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchChannels, setCurrentChannel } from '../store/slices/channelsSlice';
-import { fetchMessages } from '../store/slices/messagesSlice';
+import { fetchMessages, sendNewMessage } from '../store/slices/messagesSlice';
 import useSocket from '../hooks/useSocket';
 
 const MainPage = () => {
   const dispatch = useDispatch();
   const { items: channels, currentChannelId } = useSelector(state => state.channels);
-  const { items: messages } = useSelector(state => state.messages);
-  const { sendMessage } = useSocket();
+  const { items: messages, sending } = useSelector(state => state.messages);
   const [newMessage, setNewMessage] = useState('');
 
   useEffect(() => {
@@ -21,16 +20,19 @@ const MainPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!newMessage.trim() || !currentChannelId) return;
+    if (!newMessage.trim() || !currentChannelId || sending) return;
 
     try {
-      await sendMessage({
+      await dispatch(sendNewMessage({
         body: newMessage.trim(),
         channelId: currentChannelId
-      });
+      })).unwrap();
+      
       setNewMessage('');
+      console.log('✅ Сообщение отправлено через POST');
     } catch (error) {
-      console.error('Ошибка отправки сообщения:', error);
+      console.error('❌ Ошибка отправки сообщения:', error);
+      alert('Ошибка отправки сообщения: ' + (error.message || 'Неизвестная ошибка'));
     }
   };
 
@@ -80,14 +82,14 @@ const MainPage = () => {
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               style={{ flex: 1, padding: '8px' }}
-              disabled={!currentChannelId}
+              disabled={!currentChannelId || sending}
             />
             <button 
               type="submit" 
-              disabled={!newMessage.trim() || !currentChannelId}
+              disabled={!newMessage.trim() || !currentChannelId || sending}
               style={{ padding: '8px 16px' }}
             >
-              Отправить
+              {sending ? 'Отправка...' : 'Отправить'}
             </button>
           </div>
         </form>

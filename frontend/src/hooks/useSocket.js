@@ -10,14 +10,34 @@ const useSocket = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     
+    if (!token) {
+      console.log('❌ Токен не найден, WebSocket не подключен');
+      return;
+    }
+
+    console.log('Подключение к WebSocket для получения сообщений');
+    
     socketRef.current = io('/', {
       auth: {
         token: token
       }
     });
 
-    // Обработка новых сообщений
+    socketRef.current.on('connect', () => {
+      console.log('✅ WebSocket подключен для получения сообщений');
+    });
+
+    socketRef.current.on('disconnect', () => {
+      console.log('❌ WebSocket отключен');
+    });
+
+    socketRef.current.on('connect_error', (error) => {
+      console.log('❌ Ошибка подключения WebSocket:', error);
+    });
+
+    // Только получение сообщений
     socketRef.current.on('newMessage', (message) => {
+      console.log('✅ Получено новое сообщение через WebSocket:', message);
       dispatch(addMessage(message));
     });
 
@@ -28,23 +48,7 @@ const useSocket = () => {
     };
   }, [dispatch]);
 
-  const sendMessage = (messageData) => {
-    return new Promise((resolve, reject) => {
-      if (socketRef.current) {
-        socketRef.current.emit('newMessage', messageData, (response) => {
-          if (response.status === 'ok') {
-            resolve(response);
-          } else {
-            reject(new Error(response.error));
-          }
-        });
-      } else {
-        reject(new Error('Socket not connected'));
-      }
-    });
-  };
-
-  return { sendMessage };
+  return {};
 };
 
 export default useSocket;

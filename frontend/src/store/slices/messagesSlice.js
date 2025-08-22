@@ -9,12 +9,26 @@ export const fetchMessages = createAsyncThunk(
   }
 );
 
+// Новая функция для отправки сообщения
+export const sendNewMessage = createAsyncThunk(
+  'messages/sendNewMessage',
+  async (messageData, { rejectWithValue }) => {
+    try {
+      const response = await api.post('/messages', messageData);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
 const messagesSlice = createSlice({
   name: 'messages',
   initialState: {
     items: [],
     loading: false,
-    error: null
+    error: null,
+    sending: false
   },
   reducers: {
     addMessage: (state, action) => {
@@ -33,6 +47,17 @@ const messagesSlice = createSlice({
       .addCase(fetchMessages.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
+      })
+      .addCase(sendNewMessage.pending, (state) => {
+        state.sending = true;
+      })
+      .addCase(sendNewMessage.fulfilled, (state, action) => {
+        state.sending = false;
+        state.items.push(action.payload);
+      })
+      .addCase(sendNewMessage.rejected, (state, action) => {
+        state.sending = false;
+        state.error = action.payload;
       });
   }
 });
