@@ -50,6 +50,7 @@ const AddChannelModal = ({ show, onHide }) => {
                   as={Form.Control}
                   type="text"
                   autoFocus
+                  aria-label="Имя канала"
                 />
                 <ErrorMessage name="name" component="div" className="text-danger" />
               </Form.Group>
