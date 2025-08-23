@@ -1,5 +1,6 @@
 import * as Profanity from 'leo-profanity';
 
+Profanity.loadDictionary('en');
 Profanity.loadDictionary('ru');
 
 export const filterProfanity = (text) => {
