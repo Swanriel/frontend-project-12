@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../../api/axios';
 import { toast } from 'react-toastify';
 import i18n from '../../i18n';
+import { filterProfanity } from '../../utils/profanityFilter';
 
 export const fetchMessages = createAsyncThunk(
   'messages/fetchMessages',
@@ -15,7 +16,19 @@ export const sendNewMessage = createAsyncThunk(
   'messages/sendNewMessage',
   async (messageData, { rejectWithValue }) => {
     try {
-      const response = await api.post('/messages', messageData);
+      const originalText = messageData.body;
+      const filteredText = filterProfanity(originalText);
+      
+      if (filteredText !== originalText) {
+        toast.info(i18n.t('notifications.profanityFiltered'));
+      }
+
+      const filteredMessage = {
+        ...messageData,
+        body: filteredText
+      };
+
+      const response = await api.post('/messages', filteredMessage);
       toast.success(i18n.t('notifications.messageSent'));
       return response.data;
     } catch (error) {

@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../../api/axios';
 import { toast } from 'react-toastify';
 import i18n from '../../i18n';
+import { filterProfanity } from '../../utils/profanityFilter';
 
 export const fetchChannels = createAsyncThunk(
   'channels/fetchChannels',
@@ -15,6 +16,10 @@ export const addChannel = createAsyncThunk(
   'channels/addChannel',
   async (channelData, { rejectWithValue }) => {
     try {
+              const filteredChannelData = {
+        ...channelData,
+        name: filterProfanity(channelData.name)
+      };
       const response = await api.post('/channels', channelData);
       toast.success(i18n.t('notifications.channelCreated'));
       return response.data;
@@ -43,7 +48,8 @@ export const renameChannel = createAsyncThunk(
   'channels/renameChannel',
   async ({ id, name }, { rejectWithValue }) => {
     try {
-      const response = await api.patch(`/channels/${id}`, { name });
+              const filteredName = filterProfanity(name);
+      const response = await api.patch(`/channels/${id}`, { name: filteredName });
       toast.success(i18n.t('notifications.channelRenamed'));
       return response.data;
     } catch (error) {
