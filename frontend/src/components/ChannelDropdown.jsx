@@ -45,8 +45,7 @@ const ChannelDropdown = ({ channel, onSelect, onRename, onRemove }) => {
       className="text-decoration-none text-dark p-0 border-0 bg-transparent"
       style={{ cursor: 'pointer' }}
     >
-      {/* Видимый текст для тестов, но скрытый для пользователей */}
-      <span style={{ position: 'absolute', left: '-9999px' }}>Управление каналом</span>
+      {t('channels.manage')}
     </Dropdown.Toggle>
     <Dropdown.Menu>
       <Dropdown.Item onClick={() => handleAction('rename')}>
