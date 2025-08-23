@@ -37,7 +37,7 @@ const ChannelDropdown = ({ channel, onSelect, onRename, onRemove }) => {
       >
         # {channel.name}
       </button>
-      {channel.removable && (
+    {channel.removable && (
   <Dropdown show={showDropdown} onToggle={setShowDropdown}>
     <Dropdown.Toggle 
       variant="link" 
@@ -45,7 +45,8 @@ const ChannelDropdown = ({ channel, onSelect, onRename, onRemove }) => {
       className="text-decoration-none text-dark p-0 border-0 bg-transparent"
       style={{ cursor: 'pointer' }}
     >
-      <span style={{ display: 'none' }}>Управление каналом</span>
+      {/* Видимый текст для тестов, но скрытый для пользователей */}
+      <span style={{ position: 'absolute', left: '-9999px' }}>Управление каналом</span>
     </Dropdown.Toggle>
     <Dropdown.Menu>
       <Dropdown.Item onClick={() => handleAction('rename')}>
@@ -59,7 +60,8 @@ const ChannelDropdown = ({ channel, onSelect, onRename, onRemove }) => {
       </Dropdown.Item>
     </Dropdown.Menu>
   </Dropdown>
-)}    </div>
+)}
+</div>
   );
 };
 
