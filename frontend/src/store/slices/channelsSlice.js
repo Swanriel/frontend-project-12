@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../../api/axios';
+import { toast } from 'react-toastify';
+import i18n from '../../i18n';
 
 export const fetchChannels = createAsyncThunk(
   'channels/fetchChannels',
@@ -14,8 +16,10 @@ export const addChannel = createAsyncThunk(
   async (channelData, { rejectWithValue }) => {
     try {
       const response = await api.post('/channels', channelData);
+      toast.success(i18n.t('notifications.channelCreated'));
       return response.data;
     } catch (error) {
+      toast.error(error.response?.data?.message || i18n.t('notifications.error'));
       return rejectWithValue(error.response?.data || error.message);
     }
   }
@@ -26,8 +30,10 @@ export const removeChannel = createAsyncThunk(
   async (channelId, { rejectWithValue }) => {
     try {
       await api.delete(`/channels/${channelId}`);
+      toast.success(i18n.t('notifications.channelRemoved'));
       return channelId;
     } catch (error) {
+      toast.error(error.response?.data?.message || i18n.t('notifications.error'));
       return rejectWithValue(error.response?.data || error.message);
     }
   }
@@ -38,8 +44,10 @@ export const renameChannel = createAsyncThunk(
   async ({ id, name }, { rejectWithValue }) => {
     try {
       const response = await api.patch(`/channels/${id}`, { name });
+      toast.success(i18n.t('notifications.channelRenamed'));
       return response.data;
     } catch (error) {
+      toast.error(error.response?.data?.message || i18n.t('notifications.error'));
       return rejectWithValue(error.response?.data || error.message);
     }
   }

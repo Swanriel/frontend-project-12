@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 const LoginPage = () => {
   const { login } = useAuth();
@@ -12,7 +13,6 @@ const LoginPage = () => {
   const [error, setError] = useState('');
   const { t } = useTranslation();
 
-  // Создаем схему валидации внутри компонента, чтобы использовать t
   const LoginSchema = Yup.object().shape({
     username: Yup.string()
       .min(2, t('auth.errors.usernameMin', { count: 2 }))
@@ -22,20 +22,27 @@ const LoginPage = () => {
       .required(t('auth.errors.passwordRequired')),
   });
 
-  const handleSubmit = async (values, { setSubmitting }) => {
-    try {
-      setError('');
-      const response = await axios.post('/api/v1/login', values);
-      const { token } = response.data;
-      
-      login(token);
-      navigate('/');
-    } catch (err) {
-      setError(t('auth.errors.invalidCredentials'));
-    } finally {
-      setSubmitting(false);
+const handleSubmit = async (values, { setSubmitting }) => {
+  try {
+    setError('');
+    const response = await axios.post('/api/v1/login', values);
+    const { token } = response.data;
+    
+    login(token);
+    navigate('/');
+  } catch (err) {
+    const errorMessage = err.response?.status === 401 
+      ? t('auth.errors.invalidCredentials')
+      : t('notifications.networkError');
+    
+    setError(errorMessage);
+    if (err.response?.status !== 401) {
+      toast.error(t('notifications.networkError'));
     }
-  };
+  } finally {
+    setSubmitting(false);
+  }
+};
 
   return (
     <div style={{ maxWidth: '400px', margin: '50px auto', padding: '20px' }}>

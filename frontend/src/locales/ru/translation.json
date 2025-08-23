@@ -56,5 +56,14 @@
   "notFound": {
     "title": "404 - Страница не найдена",
     "message": "Запрашиваемая страница не существует."
+  },
+    "notifications": {
+    "error": "Ошибка",
+    "networkError": "Ошибка сети",
+    "channelCreated": "Канал создан",
+    "channelRenamed": "Канал переименован", 
+    "channelRemoved": "Канал удалён",
+    "messageSent": "Сообщение отправлено",
+    "authError": "Ошибка авторизации"
   }
 }

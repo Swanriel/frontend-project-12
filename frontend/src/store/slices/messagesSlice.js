@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../../api/axios';
+import { toast } from 'react-toastify';
+import i18n from '../../i18n';
 
 export const fetchMessages = createAsyncThunk(
   'messages/fetchMessages',
@@ -9,14 +11,15 @@ export const fetchMessages = createAsyncThunk(
   }
 );
 
-// Новая функция для отправки сообщения
 export const sendNewMessage = createAsyncThunk(
   'messages/sendNewMessage',
   async (messageData, { rejectWithValue }) => {
     try {
       const response = await api.post('/messages', messageData);
+      toast.success(i18n.t('notifications.messageSent'));
       return response.data;
     } catch (error) {
+      toast.error(error.response?.data?.message || i18n.t('notifications.error'));
       return rejectWithValue(error.response?.data || error.message);
     }
   }

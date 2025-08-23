@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 const SignupPage = () => {
   const { login } = useAuth();
@@ -33,26 +34,27 @@ const handleSubmit = async (values, { setSubmitting }) => {
       password: values.password
     });
     
-    // Сохраняем токен
     const { token } = response.data;
     localStorage.setItem('token', token);
-    
-    // Вызываем login из AuthContext чтобы обновить состояние
     login(token);
-    
-    // Редирект на главную страницу чата
     navigate('/');
     
   } catch (err) {
-      if (err.response?.status === 409) {
-        setError(t('auth.errors.userExists'));
-      } else {
-        setError(t('auth.errors.registrationError'));
-      }
-    } finally {
-      setSubmitting(false);
+    let errorMessage = t('auth.errors.registrationError');
+    
+    if (err.response?.status === 409) {
+      errorMessage = t('auth.errors.userExists');
+    } else if (!err.response) {
+      errorMessage = t('notifications.networkError');
+      toast.error(t('notifications.networkError'));
     }
-  };
+    
+    setError(errorMessage);
+    
+  } finally {
+    setSubmitting(false);
+  }
+};
 
  return (
     <div style={{ maxWidth: '400px', margin: '50px auto', padding: '20px' }}>
