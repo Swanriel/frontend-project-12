@@ -1,24 +1,17 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "[![Actions Status](https://github.com/Swanriel/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Swanriel/frontend-project-12/actions)",
-  "main": "index.js",
+  "description": "Hexlet Chat Project",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx start-server -s ./frontend/dist"
+    "build": "make build",
+    "start": "make start",
+    "dev": "make develop",
+    "lint": "make lint"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Swanriel/frontend-project-12.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Swanriel/frontend-project-12/issues"
-  },
-  "homepage": "https://github.com/Swanriel/frontend-project-12#readme",
   "dependencies": {
     "@hexlet/chat-server": "^1.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0"
   }
 }
