@@ -43,7 +43,6 @@ const ChatArea = () => {
         <h3># {currentChannel.name}</h3>
       </div>
       
-      {/* Сообщения */}
       <div style={{ flex: 1, overflowY: 'auto', padding: '10px' }}>
         {channelMessages.map(message => (
           <div key={message.id} style={{ marginBottom: '10px' }}>
@@ -52,7 +51,6 @@ const ChatArea = () => {
         ))}
       </div>
 
-      {/* Форма отправки сообщения */}
       <form onSubmit={handleSubmit} style={{ padding: '10px', borderTop: '1px solid #ccc' }}>
         <div style={{ display: 'flex', gap: '10px' }}>
           <input

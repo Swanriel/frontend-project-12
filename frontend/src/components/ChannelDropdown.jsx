@@ -24,16 +24,19 @@ const ChannelDropdown = ({ channel, onSelect, onRename, onRemove }) => {
 
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
-      <span
+      <button
         onClick={() => onSelect(channel)}
         style={{ 
           cursor: 'pointer',
           flexGrow: 1,
           padding: '8px',
+          border: 'none',
+          background: 'transparent',
+          textAlign: 'left'
         }}
       >
         # {channel.name}
-      </span>
+      </button>
       {channel.removable && (
         <Dropdown show={showDropdown} onToggle={setShowDropdown}>
           <Dropdown.Toggle 

@@ -28,7 +28,7 @@ const Header = () => {
           fontSize: '18px'
         }}
       >
-        Hexlet Chat {/* Жесткий текст вместо перевода */}
+        Hexlet Chat
       </Link>
 
       {user && (

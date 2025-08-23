@@ -35,7 +35,6 @@ const useSocket = () => {
       console.log('❌ Ошибка подключения WebSocket:', error);
     });
 
-    // Только получение сообщений
     socketRef.current.on('newMessage', (message) => {
       console.log('✅ Получено новое сообщение через WebSocket:', message);
       dispatch(addMessage(message));
