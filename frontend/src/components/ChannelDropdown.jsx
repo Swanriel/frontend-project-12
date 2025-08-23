@@ -38,28 +38,28 @@ const ChannelDropdown = ({ channel, onSelect, onRename, onRemove }) => {
         # {channel.name}
       </button>
       {channel.removable && (
-        <Dropdown show={showDropdown} onToggle={setShowDropdown}>
-          <Dropdown.Toggle 
-            variant="link" 
-            id={`dropdown-${channel.id}`}
-            className="text-decoration-none text-dark p-0 border-0 bg-transparent"
-            style={{ cursor: 'pointer' }}
-            aria-label="Управление каналом"
-          />
-          <Dropdown.Menu>
-            <Dropdown.Item onClick={() => handleAction('rename')}>
-              {t('channels.rename')}
-            </Dropdown.Item>
-            <Dropdown.Item 
-              onClick={() => handleAction('remove')}
-              className="text-danger"
-            >
-              {t('channels.remove')}
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-      )}
-    </div>
+  <Dropdown show={showDropdown} onToggle={setShowDropdown}>
+    <Dropdown.Toggle 
+      variant="link" 
+      id={`dropdown-${channel.id}`}
+      className="text-decoration-none text-dark p-0 border-0 bg-transparent"
+      style={{ cursor: 'pointer' }}
+    >
+      <span style={{ display: 'none' }}>Управление каналом</span>
+    </Dropdown.Toggle>
+    <Dropdown.Menu>
+      <Dropdown.Item onClick={() => handleAction('rename')}>
+        {t('channels.rename')}
+      </Dropdown.Item>
+      <Dropdown.Item 
+        onClick={() => handleAction('remove')}
+        className="text-danger"
+      >
+        {t('channels.remove')}
+      </Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
+)}    </div>
   );
 };
 
