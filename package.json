@@ -9,7 +9,7 @@
     "lint": "make lint"
   },
   "dependencies": {
-    "@hexlet/chat-server": "^1.0.0"
+    "@hexlet/chat-server": "^2.0.4"
   },
   "devDependencies": {
     "eslint": "^8.0.0"
