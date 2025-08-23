@@ -13,9 +13,9 @@ const AddChannelModal = ({ show, onHide }) => {
 
   const AddChannelSchema = Yup.object().shape({
     name: Yup.string()
-      .min(3, t('channels.errors.nameMin', { count: 3 }))
-      .max(20, t('channels.errors.nameMax', { count: 20 }))
-      .required(t('channels.errors.nameRequired')),
+      .min(3, 'От 3 до 20 символов')
+      .max(20, 'От 3 до 20 символов')
+      .required('Обязательное поле'),
   });
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
@@ -39,6 +39,8 @@ const AddChannelModal = ({ show, onHide }) => {
         initialValues={{ name: '' }}
         validationSchema={AddChannelSchema}
         onSubmit={handleSubmit}
+        validateOnChange={true}
+        validateOnBlur={true}
       >
         {({ handleSubmit, isSubmitting }) => (
           <Form onSubmit={handleSubmit}>
