@@ -23,12 +23,26 @@ export const sendNewMessage = createAsyncThunk(
         toast.info(i18n.t('notifications.profanityFiltered'));
       }
 
-      const filteredMessage = {
-        ...messageData,
-        body: filteredText
+      // ПОЛУЧАЕМ РЕАЛЬНОЕ ИМЯ ПОЛЬЗОВАТЕЛЯ ИЗ ТОКЕНА
+      const token = localStorage.getItem('token');
+      let username = 'user';
+      
+      if (token) {
+        try {
+          const payload = JSON.parse(atob(token.split('.')[1]));
+          username = payload.username;
+        } catch (e) {
+          console.error('Ошибка получения username из токена:', e);
+        }
+      }
+
+      const messageWithUsername = {
+        body: filteredText,
+        channelId: messageData.channelId,
+        username: username
       };
 
-      const response = await api.post('/messages', filteredMessage);
+      const response = await api.post('/messages', messageWithUsername);
       toast.success(i18n.t('notifications.messageSent'));
       return response.data;
     } catch (error) {

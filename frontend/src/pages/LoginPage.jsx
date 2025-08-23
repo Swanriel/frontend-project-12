@@ -26,8 +26,10 @@ const handleSubmit = async (values, { setSubmitting }) => {
   try {
     setError('');
     const response = await axios.post('/api/v1/login', values);
-    const { token } = response.data;
+    const { token, username } = response.data;
     
+        localStorage.setItem('token', token);
+    localStorage.setItem('username', values.username);
     login(token);
     navigate('/');
   } catch (err) {
