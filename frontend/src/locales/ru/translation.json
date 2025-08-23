@@ -24,7 +24,7 @@
       "confirmPasswordMatch": "Пароли должны совпадать",
       "confirmPasswordRequired": "Обязательное поле",
       "invalidCredentials": "Неверные имя пользователя или пароль",
-      "userExists": "Пользователь с таким именем уже существует",
+      "userExists": "Такой пользователь уже существует",
       "registrationError": "Ошибка регистрации. Попробуйте еще раз"
     }
   },
