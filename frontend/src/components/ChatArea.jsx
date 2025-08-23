@@ -40,7 +40,7 @@ const ChatArea = () => {
   return (
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
       <div style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
-        <h3># {currentChannel.name}</h3>
+        <h3># {currentChannel.name} ({channelMessages.length})</h3>
       </div>
       
       <div style={{ flex: 1, overflowY: 'auto', padding: '10px' }}>
