@@ -13,7 +13,7 @@
     "signupButton": "Зарегистрироваться",
     "noAccount": "Нет аккаунта?",
     "haveAccount": "Уже есть аккаунт?",
-    "registerLink": "Зарегистрироваться",
+    "registerLink": "Регистрация",
     "loginLink": "Войти",
     "errors": {
       "usernameRequired": "Обязательное поле",
