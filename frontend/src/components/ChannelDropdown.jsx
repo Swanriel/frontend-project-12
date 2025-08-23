@@ -44,6 +44,7 @@ const ChannelDropdown = ({ channel, onSelect, onRename, onRemove }) => {
             id={`dropdown-${channel.id}`}
             className="text-decoration-none text-dark p-0 border-0 bg-transparent"
             style={{ cursor: 'pointer' }}
+            aria-label="Управление каналом"
           />
           <Dropdown.Menu>
             <Dropdown.Item onClick={() => handleAction('rename')}>
