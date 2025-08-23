@@ -56,6 +56,7 @@ const RenameChannelModal = ({ show, onHide, channel }) => {
                   as={Form.Control}
                   type="text"
                   autoFocus
+                  aria-label="Имя канала"
                 />
                 <ErrorMessage name="name" component="div" className="text-danger" />
               </Form.Group>
