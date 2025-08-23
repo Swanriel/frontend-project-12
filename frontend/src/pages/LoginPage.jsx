@@ -4,47 +4,49 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 const LoginPage = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
   const [error, setError] = useState('');
+  const { t } = useTranslation();
 
   const LoginSchema = Yup.object().shape({
     username: Yup.string()
-      .min(2, 'От 3 до 20 символов')
-      .max(20, 'Максимум 20 символов')
-      .required('Обязательное поле'),
+      .min(2, t('auth.errors.usernameMin', { count: 2 }))
+      .max(20, t('auth.errors.usernameMax', { count: 20 }))
+      .required(t('auth.errors.usernameRequired')),
     password: Yup.string()
-      .required('Обязательное поле'),
+      .required(t('auth.errors.passwordRequired')),
   });
 
-  const handleSubmit = async (values, { setSubmitting }) => {
-    try {
-      setError('');
-      const response = await axios.post('/api/v1/login', values);
-      const { token } = response.data;
-      
-      login(token);
-      navigate('/');
-    } catch (err) {
-      const errorMessage = err.response?.status === 401 
-        ? 'Неверные имя пользователя или пароль'
-        : 'Ошибка соединения';
-      
-      setError(errorMessage);
-      if (err.response?.status !== 401) {
-        toast.error('Ошибка соединения');
-      }
-    } finally {
-      setSubmitting(false);
+const handleSubmit = async (values, { setSubmitting }) => {
+  try {
+    setError('');
+    const response = await axios.post('/api/v1/login', values);
+    const { token } = response.data;
+    
+    login(token);
+    navigate('/');
+  } catch (err) {
+    const errorMessage = err.response?.status === 401 
+      ? t('auth.errors.invalidCredentials')
+      : t('notifications.networkError');
+    
+    setError(errorMessage);
+    if (err.response?.status !== 401) {
+      toast.error(t('notifications.networkError'));
     }
-  };
+  } finally {
+    setSubmitting(false);
+  }
+};
 
   return (
     <div style={{ maxWidth: '400px', margin: '50px auto', padding: '20px' }}>
-      <h2>Войти</h2>
+      <h2>{t('auth.login')}</h2>
       {error && <div style={{ color: 'red', marginBottom: '15px' }}>{error}</div>}
       
       <Formik
@@ -55,7 +57,7 @@ const LoginPage = () => {
         {({ isSubmitting }) => (
           <Form>
             <div style={{ marginBottom: '15px' }}>
-              <label htmlFor="username">Ваш ник:</label>
+              <label htmlFor="username">{t('auth.username')}:</label>
               <Field 
                 type="text" 
                 id="username" 
@@ -66,7 +68,7 @@ const LoginPage = () => {
             </div>
 
             <div style={{ marginBottom: '15px' }}>
-              <label htmlFor="password">Пароль:</label>
+              <label htmlFor="password">{t('auth.password')}:</label>
               <Field 
                 type="password" 
                 id="password" 
@@ -81,14 +83,14 @@ const LoginPage = () => {
               disabled={isSubmitting}
               style={{ width: '100%', padding: '10px', marginBottom: '15px' }}
             >
-              {isSubmitting ? 'Отправка...' : 'Войти'}
+              {isSubmitting ? t('chat.sending') : t('auth.loginButton')}
             </button>
           </Form>
         )}
       </Formik>
 
       <p style={{ textAlign: 'center' }}>
-        Нет аккаунта? <Link to="/signup">Зарегистрироваться</Link>
+        {t('auth.noAccount')} <Link to="/signup">{t('auth.registerLink')}</Link>
       </p>
     </div>
   );

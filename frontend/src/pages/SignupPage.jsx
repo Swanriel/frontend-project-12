@@ -4,62 +4,65 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 const SignupPage = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
   const [error, setError] = useState('');
+  const { t } = useTranslation();
 
   const SignupSchema = Yup.object().shape({
     username: Yup.string()
-      .min(3, 'От 3 до 20 символов')
-      .max(20, 'Максимум 20 символов')
-      .required('Обязательное поле'),
+      .min(3, t('auth.errors.usernameMin', { count: 3 }))
+      .max(20, t('auth.errors.usernameMax', { count: 20 }))
+      .required(t('auth.errors.usernameRequired')),
     password: Yup.string()
-      .min(6, 'Не менее 6 символов')
-      .required('Обязательное поле'),
+      .min(6, t('auth.errors.passwordMin', { count: 6 }))
+      .required(t('auth.errors.passwordRequired')),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref('password'), null], 'Пароли должны совпадать')
-      .required('Обязательное поле')
+      .oneOf([Yup.ref('password'), null], t('auth.errors.confirmPasswordMatch'))
+      .required(t('auth.errors.confirmPasswordRequired'))
   });
 
-  const handleSubmit = async (values, { setSubmitting }) => {
-    try {
-      setError('');
-      const response = await axios.post('/api/v1/signup', {
-        username: values.username,
-        password: values.password
-      });
-      
-      const { token } = response.data;
-      localStorage.setItem('token', token);
-      login(token);
-      navigate('/');
-      
-    } catch (err) {
-      let errorMessage = 'Ошибка регистрации. Попробуйте еще раз';
-      
-      if (err.response?.status === 409) {
-        errorMessage = 'Пользователь с таким именем уже существует';
-      } else if (!err.response) {
-        errorMessage = 'Ошибка соединения';
-        toast.error('Ошибка соединения');
-      }
-      
-      setError(errorMessage);
-      
-    } finally {
-      setSubmitting(false);
+const handleSubmit = async (values, { setSubmitting }) => {
+  try {
+    setError('');
+    const response = await axios.post('/api/v1/signup', {
+      username: values.username,
+      password: values.password
+    });
+    
+    const { token } = response.data;
+    localStorage.setItem('token', token);
+    login(token);
+    navigate('/');
+    
+  } catch (err) {
+    let errorMessage = t('auth.errors.registrationError');
+    
+    if (err.response?.status === 409) {
+      errorMessage = t('auth.errors.userExists');
+    } else if (!err.response) {
+      errorMessage = t('notifications.networkError');
+      toast.error(t('notifications.networkError'));
     }
-  };
+    
+    setError(errorMessage);
+    
+  } finally {
+    setSubmitting(false);
+  }
+};
 
-  return (
+ return (
     <div style={{ maxWidth: '400px', margin: '50px auto', padding: '20px' }}>
-      <h2>Регистрация</h2>
+      <h2>{t('auth.signup')}</h2>
       {error && <div style={{ color: 'red', marginBottom: '15px' }}>{error}</div>}
       
-      <Formik
+      
+         <Formik
         initialValues={{ username: '', password: '', confirmPassword: '' }}
         validationSchema={SignupSchema}
         onSubmit={handleSubmit}
@@ -67,7 +70,7 @@ const SignupPage = () => {
         {({ isSubmitting }) => (
           <Form>
             <div style={{ marginBottom: '15px' }}>
-              <label htmlFor="username">Ваш ник:</label>
+              <label htmlFor="username">{t('auth.username')}:</label>
               <Field 
                 type="text" 
                 id="username" 
@@ -78,7 +81,7 @@ const SignupPage = () => {
             </div>
 
             <div style={{ marginBottom: '15px' }}>
-              <label htmlFor="password">Пароль:</label>
+              <label htmlFor="password">{t('auth.password')}:</label>
               <Field 
                 type="password" 
                 id="password" 
@@ -89,7 +92,7 @@ const SignupPage = () => {
             </div>
 
             <div style={{ marginBottom: '15px' }}>
-              <label htmlFor="confirmPassword">Подтвердите пароль:</label>
+              <label htmlFor="confirmPassword">{t('auth.confirmPassword')}:</label>
               <Field 
                 type="password" 
                 id="confirmPassword" 
@@ -104,14 +107,14 @@ const SignupPage = () => {
               disabled={isSubmitting}
               style={{ width: '100%', padding: '10px', marginBottom: '15px' }}
             >
-              {isSubmitting ? 'Отправка...' : 'Зарегистрироваться'}
+              {isSubmitting ? t('chat.sending') : t('auth.signupButton')}
             </button>
           </Form>
         )}
       </Formik>
 
       <p style={{ textAlign: 'center' }}>
-        Уже есть аккаунт? <Link to="/login">Войти</Link>
+        {t('auth.haveAccount')} <Link to="/login">{t('auth.loginLink')}</Link>
       </p>
     </div>
   );
