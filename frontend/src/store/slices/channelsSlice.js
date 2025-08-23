@@ -20,8 +20,8 @@ export const addChannel = createAsyncThunk(
         ...channelData,
         name: filterProfanity(channelData.name)
       };
-      const response = await api.post('/channels', channelData);
-      toast.success(i18n.t('notifications.channelCreated'));
+      const response = await api.post('/channels', filteredChannelData);
+    toast.success(i18n.t('notifications.channelCreated'));
       return response.data;
     } catch (error) {
       toast.error(error.response?.data?.message || i18n.t('notifications.error'));
