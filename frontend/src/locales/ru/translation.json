@@ -4,11 +4,11 @@
     "logout": "Выйти"
   },
   "auth": {
-    "login": "Авторизация",
+    "login": "Войти",
     "signup": "Регистрация",
-    "username": "Имя пользователя",
+    "username": "Ваш ник",
     "password": "Пароль",
-    "confirmPassword": "Подтверждение пароля",
+    "confirmPassword": "Подтвердите пароль",
     "loginButton": "Войти",
     "signupButton": "Зарегистрироваться",
     "noAccount": "Нет аккаунта?",
@@ -17,22 +17,22 @@
     "loginLink": "Войти",
     "errors": {
       "usernameRequired": "Обязательное поле",
-      "usernameMin": "Минимум {{count}} символа",
+      "usernameMin": "От 3 до 20 символов",
       "usernameMax": "Максимум {{count}} символов",
       "passwordRequired": "Обязательное поле",
-      "passwordMin": "Пароль должен быть не менее {{count}} символов",
+      "passwordMin": "Не менее 6 символов",
       "confirmPasswordMatch": "Пароли должны совпадать",
       "confirmPasswordRequired": "Обязательное поле",
-      "invalidCredentials": "Неверное имя пользователя или пароль",
+      "invalidCredentials": "Неверные имя пользователя или пароль",
       "userExists": "Пользователь с таким именем уже существует",
       "registrationError": "Ошибка регистрации. Попробуйте еще раз"
     }
   },
   "channels": {
     "title": "Каналы",
-    "add": "Добавить канал",
-    "remove": "Удалить канал",
-    "rename": "Переименовать канал",
+    "add": "+",
+    "remove": "Удалить",
+    "rename": "Переименовать",
     "manage": "Управление каналом",
     "removeConfirmation": "Вы уверены, что хотите удалить канал \"{{channelName}}\"?",
     "removeWarning": "Все сообщения в этом канале будут удалены.",
@@ -59,7 +59,7 @@
   },
     "notifications": {
     "error": "Ошибка",
-    "networkError": "Ошибка сети",
+    "networkError": "Ошибка соединения",
     "channelCreated": "Канал создан",
     "channelRenamed": "Канал переименован", 
     "channelRemoved": "Канал удалён",
