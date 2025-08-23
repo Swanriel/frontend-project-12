@@ -16,21 +16,24 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (token) {
-      setUser({ token });
+    const username = localStorage.getItem('username'); // ← ДОБАВЬТЕ
+    if (token && username) {
+      setUser({ token, username }); // ← ДОБАВЬТЕ username
     }
     setLoading(false);
   }, []);
 
-  const login = (token) => {
+  const login = (token, username) => { // ← ДОБАВЬТЕ username параметр
     localStorage.setItem('token', token);
-    setUser({ token });
+    localStorage.setItem('username', username); // ← ДОБАВЬТЕ
+    setUser({ token, username }); // ← ДОБАВЬТЕ
   };
 
-const logout = () => {
-  localStorage.removeItem('token');
-  setUser(null);
-};
+  const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username'); // ← ДОБАВЬТЕ
+    setUser(null);
+  };
 
   const value = {
     user,

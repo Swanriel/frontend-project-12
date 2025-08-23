@@ -28,9 +28,9 @@ const handleSubmit = async (values, { setSubmitting }) => {
     const response = await axios.post('/api/v1/login', values);
     const { token, username } = response.data;
     
-        localStorage.setItem('token', token);
-    localStorage.setItem('username', values.username);
-    login(token);
+    localStorage.setItem('token', token);
+    localStorage.setItem('username', username);
+    login(token, username);
     navigate('/');
   } catch (err) {
     const errorMessage = err.response?.status === 401 

@@ -37,9 +37,9 @@ const handleSubmit = async (values, { setSubmitting }) => {
     const { token, username } = response.data;
     console.log('Регистрация успешна:', { token, username });
     
-        localStorage.setItem('token', token);
-    localStorage.setItem('username', values.username);
-    login(token);
+    localStorage.setItem('token', token);
+    localStorage.setItem('username', username); 
+    login(token, username);
     navigate('/');
     
   } catch (err) {
