@@ -60,6 +60,7 @@ const ChatArea = () => {
             onChange={(e) => setNewMessage(e.target.value)}
             style={{ flex: 1, padding: '8px' }}
             disabled={sending}
+            aria-label="Новое сообщение"
           />
           <button 
             type="submit" 
