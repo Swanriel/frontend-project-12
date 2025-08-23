@@ -70,7 +70,7 @@ const handleSubmit = async (values, { setSubmitting }) => {
         {({ isSubmitting }) => (
           <Form>
             <div style={{ marginBottom: '15px' }}>
-              <label htmlFor="username">{t('auth.username')}:</label>
+              <label htmlFor="username">Имя пользователя:</label>
               <Field 
                 type="text" 
                 id="username" 
