@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Dropdown } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 const ChannelDropdown = ({ channel, onSelect, onRename, onRemove }) => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const { t } = useTranslation();
 
   const handleAction = (action) => {
     setShowDropdown(false);
@@ -42,13 +44,13 @@ const ChannelDropdown = ({ channel, onSelect, onRename, onRemove }) => {
           />
           <Dropdown.Menu>
             <Dropdown.Item onClick={() => handleAction('rename')}>
-              Переименовать
+              {t('channels.rename')}
             </Dropdown.Item>
             <Dropdown.Item 
               onClick={() => handleAction('remove')}
               className="text-danger"
             >
-              Удалить
+              {t('channels.remove')}
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>

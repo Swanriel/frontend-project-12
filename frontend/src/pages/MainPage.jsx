@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import { fetchChannels, setCurrentChannel } from '../store/slices/channelsSlice'; // Добавить setCurrentChannel
+import { fetchChannels, setCurrentChannel } from '../store/slices/channelsSlice';
 import { fetchMessages } from '../store/slices/messagesSlice';
 import ChannelDropdown from '../components/ChannelDropdown';
 import AddChannelModal from '../components/modals/AddChannelModal';
 import RemoveChannelModal from '../components/modals/RemoveChannelModal';
 import RenameChannelModal from '../components/modals/RenameChannelModal';
 import ChatArea from '../components/ChatArea';
+import { useTranslation } from 'react-i18next';
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const MainPage = () => {
   const [showRemoveModal, setShowRemoveModal] = useState(false);
   const [showRenameModal, setShowRenameModal] = useState(false);
   const [selectedChannel, setSelectedChannel] = useState(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(fetchChannels());
@@ -38,10 +40,9 @@ const MainPage = () => {
 
   return (
     <div style={{ display: 'flex', height: '100vh' }}>
-      {/* Список каналов */}
       <div style={{ width: '250px', borderRight: '1px solid #ccc', padding: '10px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-          <h3>Каналы</h3>
+          <h3>{t('channels.title')}</h3>
           <Button 
             variant="outline-primary" 
             size="sm"
@@ -74,10 +75,8 @@ const MainPage = () => {
         </ul>
       </div>
 
-      {/* Область чата */}
       <ChatArea />
 
-      {/* Модальные окна */}
       <AddChannelModal 
         show={showAddModal}
         onHide={() => setShowAddModal(false)}

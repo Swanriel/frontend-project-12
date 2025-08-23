@@ -3,18 +3,21 @@ import { Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { renameChannel } from '../../store/slices/channelsSlice';
-
-const RenameChannelSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(3, 'Минимум 3 символа')
-    .max(20, 'Максимум 20 символов')
-    .required('Обязательное поле')
-});
+import { useTranslation } from 'react-i18next';
 
 const RenameChannelModal = ({ show, onHide, channel }) => {
   const dispatch = useDispatch();
   const { items: channels } = useSelector(state => state.channels);
   const { loading } = useSelector(state => state.channels);
+  const { t } = useTranslation();
+
+  // Создаем схему валидации внутри компонента, чтобы использовать t
+  const RenameChannelSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(3, t('channels.errors.nameMin', { count: 3 }))
+      .max(20, t('channels.errors.nameMax', { count: 20 }))
+      .required(t('channels.errors.nameRequired')),
+  });
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
@@ -25,7 +28,7 @@ const RenameChannelModal = ({ show, onHide, channel }) => {
       resetForm();
       onHide();
     } catch (error) {
-      console.error('Ошибка переименования канала:', error);
+      console.error(t('errors.internal.renameChannelError'), error);
     } finally {
       setSubmitting(false);
     }
@@ -36,7 +39,7 @@ const RenameChannelModal = ({ show, onHide, channel }) => {
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
-        <Modal.Title>Переименовать канал</Modal.Title>
+        <Modal.Title>{t('channels.rename')}</Modal.Title>
       </Modal.Header>
       <Formik
         initialValues={{ name: channel.name }}
@@ -47,7 +50,7 @@ const RenameChannelModal = ({ show, onHide, channel }) => {
           <Form onSubmit={handleSubmit}>
             <Modal.Body>
               <Form.Group>
-                <Form.Label>Имя канала</Form.Label>
+                <Form.Label>{t('channels.channelName')}</Form.Label>
                 <Field 
                   name="name" 
                   as={Form.Control}
@@ -59,10 +62,10 @@ const RenameChannelModal = ({ show, onHide, channel }) => {
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={onHide}>
-                Отмена
+                {t('channels.cancel')}
               </Button>
               <Button type="submit" variant="primary" disabled={isSubmitting}>
-                {isSubmitting ? 'Сохранение...' : 'Сохранить'}
+                {isSubmitting ? t('chat.sending') : t('channels.save')}
               </Button>
             </Modal.Footer>
           </Form>

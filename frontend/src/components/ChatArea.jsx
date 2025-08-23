@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { sendNewMessage } from '../store/slices/messagesSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 const ChatArea = () => {
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const { items: channels, currentChannelId } = useSelector(state => state.channels);
   const { items: messages, sending } = useSelector(state => state.messages);
   const [newMessage, setNewMessage] = useState('');
+  const { t } = useTranslation();
 
   const currentChannel = channels.find(channel => channel.id === currentChannelId);
   const channelMessages = messages.filter(message => message.channelId === currentChannelId);
@@ -30,7 +32,7 @@ const dispatch = useDispatch();
   if (!currentChannel) {
     return (
       <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <p>Выберите канал для начала общения</p>
+        <p>{t('chat.noChannel')}</p>
       </div>
     );
   }
@@ -55,7 +57,7 @@ const dispatch = useDispatch();
         <div style={{ display: 'flex', gap: '10px' }}>
           <input
             type="text"
-            placeholder="Введите сообщение..."
+            placeholder={t('chat.messagePlaceholder')}
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             style={{ flex: 1, padding: '8px' }}
@@ -66,7 +68,7 @@ const dispatch = useDispatch();
             disabled={!newMessage.trim() || sending}
             style={{ padding: '8px 16px' }}
           >
-            {sending ? 'Отправка...' : 'Отправить'}
+            {sending ? t('chat.sending') : t('chat.send')}
           </button>
         </div>
       </form>

@@ -1,0 +1,60 @@
+{
+  "header": {
+    "title": "Hexlet Chat",
+    "logout": "Выйти"
+  },
+  "auth": {
+    "login": "Авторизация",
+    "signup": "Регистрация",
+    "username": "Имя пользователя",
+    "password": "Пароль",
+    "confirmPassword": "Подтверждение пароля",
+    "loginButton": "Войти",
+    "signupButton": "Зарегистрироваться",
+    "noAccount": "Нет аккаунта?",
+    "haveAccount": "Уже есть аккаунт?",
+    "registerLink": "Зарегистрироваться",
+    "loginLink": "Войти",
+    "errors": {
+      "usernameRequired": "Обязательное поле",
+      "usernameMin": "Минимум {{count}} символа",
+      "usernameMax": "Максимум {{count}} символов",
+      "passwordRequired": "Обязательное поле",
+      "passwordMin": "Пароль должен быть не менее {{count}} символов",
+      "confirmPasswordMatch": "Пароли должны совпадать",
+      "confirmPasswordRequired": "Обязательное поле",
+      "invalidCredentials": "Неверное имя пользователя или пароль",
+      "userExists": "Пользователь с таким именем уже существует",
+      "registrationError": "Ошибка регистрации. Попробуйте еще раз"
+    }
+  },
+  "channels": {
+    "title": "Каналы",
+    "add": "Добавить канал",
+    "remove": "Удалить канал",
+    "rename": "Переименовать канал",
+    "manage": "Управление каналом",
+    "removeConfirmation": "Вы уверены, что хотите удалить канал \"{{channelName}}\"?",
+    "removeWarning": "Все сообщения в этом канале будут удалены.",
+    "cancel": "Отмена",
+    "create": "Создать",
+    "save": "Сохранить",
+    "delete": "Удалить",
+    "channelName": "Имя канала",
+    "errors": {
+      "nameRequired": "Обязательное поле",
+      "nameMin": "Минимум {{count}} символа",
+      "nameMax": "Максимум {{count}} символов"
+    }
+  },
+  "chat": {
+    "send": "Отправить",
+    "sending": "Отправка...",
+    "messagePlaceholder": "Введите сообщение...",
+    "noChannel": "Выберите канал для начала общения"
+  },
+  "notFound": {
+    "title": "404 - Страница не найдена",
+    "message": "Запрашиваемая страница не существует."
+  }
+}

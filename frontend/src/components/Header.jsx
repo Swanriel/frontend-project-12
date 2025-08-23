@@ -1,9 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 const Header = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleLogout = () => {
     logout();
@@ -28,7 +30,7 @@ const Header = () => {
           fontSize: '18px'
         }}
       >
-        Hexlet Chat
+        {t('header.title')}
       </Link>
 
       {user && (
@@ -43,7 +45,7 @@ const Header = () => {
             cursor: 'pointer'
           }}
         >
-          Выйти
+          {t('header.logout')}
         </button>
       )}
     </header>

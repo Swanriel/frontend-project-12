@@ -1,10 +1,12 @@
 import { Modal, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeChannel } from '../../store/slices/channelsSlice';
+import { useTranslation } from 'react-i18next';
 
 const RemoveChannelModal = ({ show, onHide, channel }) => {
   const dispatch = useDispatch();
   const { loading } = useSelector(state => state.channels);
+  const { t } = useTranslation();
 
   const handleRemove = async () => {
     try {
@@ -20,22 +22,22 @@ const RemoveChannelModal = ({ show, onHide, channel }) => {
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
-        <Modal.Title>Удалить канал</Modal.Title>
+        <Modal.Title>{t('channels.remove')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>Вы уверены, что хотите удалить канал "{channel.name}"?</p>
-        <p className="text-danger">Все сообщения в этом канале будут удалены.</p>
+        <p>{t('channels.removeConfirmation', { channelName: channel.name })}</p>
+        <p className="text-danger">{t('channels.removeWarning')}</p>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onHide}>
-          Отмена
+          {t('channels.cancel')}
         </Button>
         <Button 
           variant="danger" 
           onClick={handleRemove} 
           disabled={loading}
         >
-          {loading ? 'Удаление...' : 'Удалить'}
+          {loading ? t('chat.sending') : t('channels.delete')}
         </Button>
       </Modal.Footer>
     </Modal>

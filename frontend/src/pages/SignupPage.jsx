@@ -4,24 +4,26 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-
-const SignupSchema = Yup.object().shape({
-  username: Yup.string()
-    .min(3, 'Минимум 3 символа')
-    .max(20, 'Максимум 20 символов')
-    .required('Обязательное поле'),
-  password: Yup.string()
-    .min(6, 'Пароль должен быть не менее 6 символов')
-    .required('Обязательное поле'),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Пароли должны совпадать')
-    .required('Обязательное поле')
-});
+import { useTranslation } from 'react-i18next';
 
 const SignupPage = () => {
-const { login } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
   const [error, setError] = useState('');
+  const { t } = useTranslation();
+
+  const SignupSchema = Yup.object().shape({
+    username: Yup.string()
+      .min(3, t('auth.errors.usernameMin', { count: 3 }))
+      .max(20, t('auth.errors.usernameMax', { count: 20 }))
+      .required(t('auth.errors.usernameRequired')),
+    password: Yup.string()
+      .min(6, t('auth.errors.passwordMin', { count: 6 }))
+      .required(t('auth.errors.passwordRequired')),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password'), null], t('auth.errors.confirmPasswordMatch'))
+      .required(t('auth.errors.confirmPasswordRequired'))
+  });
 
 const handleSubmit = async (values, { setSubmitting }) => {
   try {
@@ -42,22 +44,23 @@ const handleSubmit = async (values, { setSubmitting }) => {
     navigate('/');
     
   } catch (err) {
-    if (err.response?.status === 409) {
-      setError('Пользователь с таким именем уже существует');
-    } else {
-      setError('Ошибка регистрации. Попробуйте еще раз');
+      if (err.response?.status === 409) {
+        setError(t('auth.errors.userExists'));
+      } else {
+        setError(t('auth.errors.registrationError'));
+      }
+    } finally {
+      setSubmitting(false);
     }
-  } finally {
-    setSubmitting(false);
-  }
-};
+  };
 
-  return (
+ return (
     <div style={{ maxWidth: '400px', margin: '50px auto', padding: '20px' }}>
-      <h2>Регистрация</h2>
+      <h2>{t('auth.signup')}</h2>
       {error && <div style={{ color: 'red', marginBottom: '15px' }}>{error}</div>}
       
-      <Formik
+      
+         <Formik
         initialValues={{ username: '', password: '', confirmPassword: '' }}
         validationSchema={SignupSchema}
         onSubmit={handleSubmit}
@@ -65,7 +68,7 @@ const handleSubmit = async (values, { setSubmitting }) => {
         {({ isSubmitting }) => (
           <Form>
             <div style={{ marginBottom: '15px' }}>
-              <label htmlFor="username">Имя пользователя:</label>
+              <label htmlFor="username">{t('auth.username')}:</label>
               <Field 
                 type="text" 
                 id="username" 
@@ -76,7 +79,7 @@ const handleSubmit = async (values, { setSubmitting }) => {
             </div>
 
             <div style={{ marginBottom: '15px' }}>
-              <label htmlFor="password">Пароль:</label>
+              <label htmlFor="password">{t('auth.password')}:</label>
               <Field 
                 type="password" 
                 id="password" 
@@ -87,7 +90,7 @@ const handleSubmit = async (values, { setSubmitting }) => {
             </div>
 
             <div style={{ marginBottom: '15px' }}>
-              <label htmlFor="confirmPassword">Подтверждение пароля:</label>
+              <label htmlFor="confirmPassword">{t('auth.confirmPassword')}:</label>
               <Field 
                 type="password" 
                 id="confirmPassword" 
@@ -102,14 +105,14 @@ const handleSubmit = async (values, { setSubmitting }) => {
               disabled={isSubmitting}
               style={{ width: '100%', padding: '10px', marginBottom: '15px' }}
             >
-              {isSubmitting ? 'Регистрация...' : 'Зарегистрироваться'}
+              {isSubmitting ? t('chat.sending') : t('auth.signupButton')}
             </button>
           </Form>
         )}
       </Formik>
 
       <p style={{ textAlign: 'center' }}>
-        Уже есть аккаунт? <Link to="/login">Войти</Link>
+        {t('auth.haveAccount')} <Link to="/login">{t('auth.loginLink')}</Link>
       </p>
     </div>
   );
