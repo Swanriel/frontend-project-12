@@ -28,8 +28,8 @@ const RenameChannelModal = ({ show, onHide, channel }) => {
     }
     catch (error) {
       console.error(t('errors.internal.renameChannelError'), error)
-        }
-        finally {
+    }
+    finally {
       setSubmitting(false)
     }
   }
