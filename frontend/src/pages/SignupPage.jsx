@@ -33,28 +33,28 @@ const SignupPage = () => {
         username: values.username,
         password: values.password,
       })
-    
+
       const { token, username } = response.data
-    
+
       localStorage.setItem('token', token)
       localStorage.setItem('username', username)
       login(token, username)
       navigate('/')
-    } catch (err)
-    {
+    }
+    catch (err) {
       let errorMessage = t('auth.errors.registrationError')
-    
+
       if (err.response?.status === 409) {
         errorMessage = t('auth.errors.userExists')
-      } else if (!err.response)
-        {
+      }
+      else if (!err.response) {
         errorMessage = t('notifications.networkError')
         toast.error(t('notifications.networkError'))
       }
-    
+
       setError(errorMessage)
-    } finally
-    {
+    }
+    finally {
       setSubmitting(false)
     }
   }
@@ -63,7 +63,7 @@ const SignupPage = () => {
     <div style={{ maxWidth: '400px', margin: '50px auto', padding: '20px' }}>
       <h2>{t('auth.signup')}</h2>
       {error && <div style={{ color: 'red', marginBottom: '15px' }}>{error}</div>}
-    
+
       <Formik
         initialValues={{ username: '', password: '', confirmPassword: '' }}
         validationSchema={SignupSchema}

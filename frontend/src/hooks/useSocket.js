@@ -9,7 +9,7 @@ const useSocket = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token')
-  
+
     if (!token) {
       return
     }
@@ -24,16 +24,16 @@ const useSocket = () => {
     socketRef.current.on('connect', () => {
     })
 
-    socketRef.current.on('disconnect', (reason) => {
+    socketRef.current.on('disconnect', () => {
     })
 
-    socketRef.current.on('connect_error', (error) => {
+    socketRef.current.on('connect_error', () => {
     })
 
     socketRef.current.on('authenticated', () => {
     })
 
-    socketRef.current.on('unauthorized', (error) => {
+    socketRef.current.on('unauthorized', () => {
     })
 
     socketRef.current.on('newMessage', (message) => {

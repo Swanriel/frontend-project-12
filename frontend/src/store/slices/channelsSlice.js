@@ -23,7 +23,8 @@ export const addChannel = createAsyncThunk(
       const response = await api.post('/channels', filteredChannelData)
       toast.success(i18n.t('notifications.channelCreated'))
       return response.data
-    } catch (error) {
+    }
+    catch (error) {
       toast.error(error.response?.data?.message || i18n.t('notifications.error'))
       return rejectWithValue(error.response?.data || error.message)
     }
@@ -37,7 +38,8 @@ export const removeChannel = createAsyncThunk(
       await api.delete(`/channels/${channelId}`)
       toast.success(i18n.t('notifications.channelRemoved'))
       return channelId
-    } catch (error) {
+    }
+    catch (error) {
       toast.error(error.response?.data?.message || i18n.t('notifications.error'))
       return rejectWithValue(error.response?.data || error.message)
     }
@@ -52,7 +54,8 @@ export const renameChannel = createAsyncThunk(
       const response = await api.patch(`/channels/${id}`, { name: filteredName })
       toast.success(i18n.t('notifications.channelRenamed'))
       return response.data
-    } catch (error) {
+    }
+    catch (error) {
       toast.error(error.response?.data?.message || i18n.t('notifications.error'))
       return rejectWithValue(error.response?.data || error.message)
     }

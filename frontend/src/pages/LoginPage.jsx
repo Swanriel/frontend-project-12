@@ -27,23 +27,23 @@ const LoginPage = () => {
       setError('')
       const response = await axios.post('/api/v1/login', values)
       const { token, username } = response.data
-    
+
       localStorage.setItem('token', token)
       localStorage.setItem('username', username)
       login(token, username)
       navigate('/')
-    } catch (err)
-    {
+    }
+    catch (err) {
       const errorMessage = err.response?.status === 401
         ? t('auth.errors.invalidCredentials')
         : t('notifications.networkError')
-    
+
       setError(errorMessage)
       if (err.response?.status !== 401) {
         toast.error(t('notifications.networkError'))
       }
-    } finally
-    {
+    }
+    finally {
       setSubmitting(false)
     }
   }
@@ -52,7 +52,7 @@ const LoginPage = () => {
     <div style={{ maxWidth: '400px', margin: '50px auto', padding: '20px' }}>
       <h2>{t('auth.login')}</h2>
       {error && <div style={{ color: 'red', marginBottom: '15px' }}>{error}</div>}
-    
+
       <Formik
         initialValues={{ username: '', password: '' }}
         validationSchema={LoginSchema}

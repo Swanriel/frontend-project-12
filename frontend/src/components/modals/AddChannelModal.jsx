@@ -21,10 +21,11 @@ const AddChannelModal = ({ show, onHide }) => {
       await dispatch(addChannel({ name: values.name })).unwrap()
       resetForm()
       onHide()
-    } catch (error) {
+    }
+    catch (error) {
       console.error(t('errors.internal.createChannelError'), error)
-    } finally
-    {
+    }
+    finally {
       setSubmitting(false)
     }
   }

@@ -51,7 +51,7 @@ const MainPage = () => {
             +
           </Button>
         </div>
-      
+
         <ul style={{ listStyle: 'none', padding: 0 }}>
           {channels.map(channel => (
             <li
@@ -81,13 +81,13 @@ const MainPage = () => {
         show={showAddModal}
         onHide={() => setShowAddModal(false)}
       />
-    
+
       <RemoveChannelModal
         show={showRemoveModal}
         onHide={() => setShowRemoveModal(false)}
         channel={selectedChannel}
       />
-    
+
       <RenameChannelModal
         show={showRenameModal}
         onHide={() => setShowRenameModal(false)}

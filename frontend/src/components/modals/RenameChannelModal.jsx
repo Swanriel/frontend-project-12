@@ -25,11 +25,11 @@ const RenameChannelModal = ({ show, onHide, channel }) => {
       })).unwrap()
       resetForm()
       onHide()
-    } catch (error)
-    {
+    }
+    catch (error) {
       console.error(t('errors.internal.renameChannelError'), error)
-    } finally
-    {
+}
+finally {
       setSubmitting(false)
     }
   }
