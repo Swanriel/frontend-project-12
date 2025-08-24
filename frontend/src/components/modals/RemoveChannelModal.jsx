@@ -5,14 +5,15 @@ import { useTranslation } from 'react-i18next'
 
 const RemoveChannelModal = ({ show, onHide, channel }) => {
   const dispatch = useDispatch()
-  const { loading } = useSelector((state) => state.channels)
+  const { loading } = useSelector(state => state.channels)
   const { t } = useTranslation()
 
   const handleRemove = async () => {
     try {
       await dispatch(removeChannel(channel.id)).unwrap()
       onHide()
-    } catch (error) {
+    } catch (error)
+    {
       console.error('Ошибка удаления канала:', error)
     }
   }
@@ -32,9 +33,9 @@ const RemoveChannelModal = ({ show, onHide, channel }) => {
         <Button variant="secondary" onClick={onHide}>
           {t('channels.cancel')}
         </Button>
-        <Button 
-          variant="danger" 
-          onClick={handleRemove} 
+        <Button
+          variant="danger"
+          onClick={handleRemove}
           disabled={loading}
         >
           {loading ? t('chat.sending') : t('channels.delete')}

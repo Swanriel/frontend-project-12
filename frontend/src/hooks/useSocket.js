@@ -9,7 +9,7 @@ const useSocket = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token')
-    
+  
     if (!token) {
       return
     }

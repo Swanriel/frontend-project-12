@@ -19,15 +19,17 @@ const RenameChannelModal = ({ show, onHide, channel }) => {
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
-      await dispatch(renameChannel({ 
-        id: channel.id, 
-        name: values.name, 
+      await dispatch(renameChannel({
+        id: channel.id,
+        name: values.name,
       })).unwrap()
       resetForm()
       onHide()
-    } catch (error) {
+    } catch (error)
+    {
       console.error(t('errors.internal.renameChannelError'), error)
-    } finally {
+    } finally
+    {
       setSubmitting(false)
     }
   }
@@ -49,8 +51,8 @@ const RenameChannelModal = ({ show, onHide, channel }) => {
             <Modal.Body>
               <Form.Group>
                 <Form.Label>{t('channels.channelName')}</Form.Label>
-                <Field 
-                  name="name" 
+                <Field
+                  name="name"
                   as={Form.Control}
                   type="text"
                   autoFocus

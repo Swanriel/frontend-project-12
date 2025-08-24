@@ -15,11 +15,11 @@ const ChatArea = () => {
 
   useEffect(() => {
     if (!currentChannelId) return
-  
+
     const interval = setInterval(() => {
       dispatch(fetchMessages())
     }, 3000)
-  
+
     return () => {
       clearInterval(interval)
     }
@@ -34,9 +34,9 @@ const ChatArea = () => {
         body: newMessage.trim(),
         channelId: currentChannelId,
       })).unwrap()
-    
+
       setNewMessage('')
-    
+
       setTimeout(() => {
         dispatch(fetchMessages())
       }, 100)
@@ -67,7 +67,7 @@ const ChatArea = () => {
           )
         </h3>
       </div>
-    
+
       <div style={{ flex: 1, overflowY: 'auto', padding: '10px' }}>
         {channelMessages.length === 0
           ? (
@@ -75,11 +75,11 @@ const ChatArea = () => {
                 {t('chat.noMessages')}
               </div>
             )
-            : (
+            :(
               channelMessages.map(message => (
                 <div key={message.id} style={{ marginBottom: '10px' }}>
                   <strong>
-                    {message.username}
+                      {message.username}
                   :
                   </strong>
                   {' '}
