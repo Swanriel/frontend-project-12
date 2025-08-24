@@ -1,14 +1,14 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
+import i18n from 'i18next'
+import { initReactI18next } from 'react-i18next'
+import LanguageDetector from 'i18next-browser-languagedetector'
 
-import translationRu from './locales/ru/translation.json';
+import translationRu from './locales/ru/translation.json'
 
 const resources = {
   ru: {
-    translation: translationRu
-  }
-};
+    translation: translationRu,
+  },
+}
 
 i18n
   .use(LanguageDetector)
@@ -20,8 +20,8 @@ i18n
     debug: false,
 
     interpolation: {
-      escapeValue: false
-    }
-  });
+      escapeValue: false,
+    },
+  })
 
-export default i18n;
+export default i18n

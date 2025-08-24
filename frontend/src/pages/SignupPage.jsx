@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
-import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
+import { useState } from 'react'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import * as Yup from 'yup'
+import axios from 'axios'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
+import { useTranslation } from 'react-i18next'
+import { toast } from 'react-toastify'
 
 const SignupPage = () => {
-  const { login } = useAuth();
-  const navigate = useNavigate();
-  const [error, setError] = useState('');
-  const { t } = useTranslation();
+  const { login } = useAuth()
+  const navigate = useNavigate()
+  const [error, setError] = useState('')
+  const { t } = useTranslation()
 
   const SignupSchema = Yup.object().shape({
     username: Yup.string()
@@ -23,49 +23,45 @@ const SignupPage = () => {
       .required(t('auth.errors.passwordRequired')),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref('password'), null], t('auth.errors.confirmPasswordMatch'))
-      .required(t('auth.errors.confirmPasswordRequired'))
-  });
+      .required(t('auth.errors.confirmPasswordRequired')),
+  })
 
-const handleSubmit = async (values, { setSubmitting }) => {
-  try {
-    setError('');
-    const response = await axios.post('/api/v1/signup', {
-      username: values.username,
-      password: values.password
-    });
-    
-    const { token, username } = response.data;
-    console.log('Регистрация успешна:', { token, username });
-    
-    localStorage.setItem('token', token);
-    localStorage.setItem('username', username); 
-    login(token, username);
-    navigate('/');
-    
-  } catch (err) {
-    let errorMessage = t('auth.errors.registrationError');
-    
-    if (err.response?.status === 409) {
-      errorMessage = t('auth.errors.userExists');
-    } else if (!err.response) {
-      errorMessage = t('notifications.networkError');
-      toast.error(t('notifications.networkError'));
+  const handleSubmit = async (values, { setSubmitting }) => {
+    try {
+      setError('')
+      const response = await axios.post('/api/v1/signup', {
+        username: values.username,
+        password: values.password,
+      })
+      
+      const { token, username } = response.data
+      
+      localStorage.setItem('token', token)
+      localStorage.setItem('username', username) 
+      login(token, username)
+      navigate('/')
+    } catch (err) {
+      let errorMessage = t('auth.errors.registrationError')
+      
+      if (err.response?.status === 409) {
+        errorMessage = t('auth.errors.userExists')
+      } else if (!err.response) {
+        errorMessage = t('notifications.networkError')
+        toast.error(t('notifications.networkError'))
+      }
+      
+      setError(errorMessage)
+    } finally {
+      setSubmitting(false)
     }
-    
-    setError(errorMessage);
-    
-  } finally {
-    setSubmitting(false);
   }
-};
 
- return (
+  return (
     <div style={{ maxWidth: '400px', margin: '50px auto', padding: '20px' }}>
       <h2>{t('auth.signup')}</h2>
       {error && <div style={{ color: 'red', marginBottom: '15px' }}>{error}</div>}
       
-      
-         <Formik
+      <Formik
         initialValues={{ username: '', password: '', confirmPassword: '' }}
         validationSchema={SignupSchema}
         onSubmit={handleSubmit}
@@ -73,7 +69,10 @@ const handleSubmit = async (values, { setSubmitting }) => {
         {({ isSubmitting }) => (
           <Form>
             <div style={{ marginBottom: '15px' }}>
-              <label htmlFor="username">Имя пользователя:</label>
+              <label htmlFor="username">
+                {t('auth.username')}
+                :
+              </label>
               <Field 
                 type="text" 
                 id="username" 
@@ -84,7 +83,10 @@ const handleSubmit = async (values, { setSubmitting }) => {
             </div>
 
             <div style={{ marginBottom: '15px' }}>
-              <label htmlFor="password">{t('auth.password')}:</label>
+              <label htmlFor="password">
+                {t('auth.password')}
+                :
+              </label>
               <Field 
                 type="password" 
                 id="password" 
@@ -95,7 +97,10 @@ const handleSubmit = async (values, { setSubmitting }) => {
             </div>
 
             <div style={{ marginBottom: '15px' }}>
-              <label htmlFor="confirmPassword">{t('auth.confirmPassword')}:</label>
+              <label htmlFor="confirmPassword">
+                {t('auth.confirmPassword')}
+                :
+              </label>
               <Field 
                 type="password" 
                 id="confirmPassword" 
@@ -117,10 +122,14 @@ const handleSubmit = async (values, { setSubmitting }) => {
       </Formik>
 
       <p style={{ textAlign: 'center' }}>
-        {t('auth.haveAccount')} <Link to="/login">{t('auth.loginLink')}</Link>
+        {t('auth.haveAccount')}
+        {' '}
+        <Link to="/login">
+          {t('auth.loginLink')}
+        </Link>
       </p>
     </div>
-  );
-};
+  )
+}
 
-export default SignupPage;
+export default SignupPage

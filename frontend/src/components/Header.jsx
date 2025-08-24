@@ -1,14 +1,14 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
 
 const Header = () => {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
+  const { user, logout } = useAuth()
+  const navigate = useNavigate()
 
   const handleLogout = () => {
-    logout();
-    navigate('/login');
-  };
+    logout()
+    navigate('/login')
+  }
 
   return (
     <header style={{ 
@@ -17,15 +17,16 @@ const Header = () => {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      backgroundColor: '#f8f9fa'
-    }}>
+      backgroundColor: '#f8f9fa',
+    }}
+    >
       <Link 
         to="/" 
         style={{ 
           textDecoration: 'none', 
           color: '#007bff',
           fontWeight: 'bold',
-          fontSize: '18px'
+          fontSize: '18px',
         }}
       >
         Hexlet Chat
@@ -40,14 +41,14 @@ const Header = () => {
             backgroundColor: 'transparent',
             color: '#dc3545',
             borderRadius: '4px',
-            cursor: 'pointer'
+            cursor: 'pointer',
           }}
         >
-          Выйти 
+          Выйти
         </button>
       )}
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

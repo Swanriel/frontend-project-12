@@ -1,34 +1,32 @@
-import { Modal, Button, Form } from 'react-bootstrap';
-import { Formik, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import { useDispatch, useSelector } from 'react-redux';
-import { addChannel } from '../../store/slices/channelsSlice';
-import { useTranslation } from 'react-i18next';
+import { Modal, Button, Form } from 'react-bootstrap'
+import { Formik, Field, ErrorMessage } from 'formik'
+import * as Yup from 'yup'
+import { useDispatch } from 'react-redux'
+import { addChannel } from '../../store/slices/channelsSlice'
+import { useTranslation } from 'react-i18next'
 
 const AddChannelModal = ({ show, onHide }) => {
-  const dispatch = useDispatch();
-  const { items: channels } = useSelector(state => state.channels);
-  const { loading } = useSelector(state => state.channels);
-  const { t } = useTranslation();
+  const dispatch = useDispatch()
+  const { t } = useTranslation()
 
   const AddChannelSchema = Yup.object().shape({
     name: Yup.string()
       .min(3, 'От 3 до 20 символов')
       .max(20, 'От 3 до 20 символов')
       .required('Обязательное поле'),
-  });
+  })
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
-      await dispatch(addChannel({ name: values.name })).unwrap();
-      resetForm();
-      onHide();
+      await dispatch(addChannel({ name: values.name })).unwrap()
+      resetForm()
+      onHide()
     } catch (error) {
-      console.error(t('errors.internal.createChannelError'), error);
+      console.error(t('errors.internal.createChannelError'), error)
     } finally {
-      setSubmitting(false);
+      setSubmitting(false)
     }
-  };
+  }
 
   return (
     <Modal show={show} onHide={onHide}>
@@ -39,11 +37,11 @@ const AddChannelModal = ({ show, onHide }) => {
         initialValues={{ name: '' }}
         validationSchema={AddChannelSchema}
         onSubmit={handleSubmit}
-        validateOnChange={true}
-        validateOnBlur={true}
+        validateOnChange
+        validateOnBlur
       >
-        {({ handleSubmit, isSubmitting }) => (
-          <Form onSubmit={handleSubmit}>
+        {({ handleSubmit: formikHandleSubmit, isSubmitting }) => (
+          <Form onSubmit={formikHandleSubmit}>
             <Modal.Body>
               <Form.Group>
                 <Form.Label>{t('channels.channelName')}</Form.Label>
@@ -69,7 +67,7 @@ const AddChannelModal = ({ show, onHide }) => {
         )}
       </Formik>
     </Modal>
-  );
-};
+  )
+}
 
-export default AddChannelModal;
+export default AddChannelModal

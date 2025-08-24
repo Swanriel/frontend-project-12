@@ -1,15 +1,13 @@
-import { Modal, Button, Form } from 'react-bootstrap';
-import { Formik, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import { useDispatch, useSelector } from 'react-redux';
-import { renameChannel } from '../../store/slices/channelsSlice';
-import { useTranslation } from 'react-i18next';
+import { Modal, Button, Form } from 'react-bootstrap'
+import { Formik, Field, ErrorMessage } from 'formik'
+import * as Yup from 'yup'
+import { useDispatch } from 'react-redux'
+import { renameChannel } from '../../store/slices/channelsSlice'
+import { useTranslation } from 'react-i18next'
 
 const RenameChannelModal = ({ show, onHide, channel }) => {
-  const dispatch = useDispatch();
-  const { items: channels } = useSelector(state => state.channels);
-  const { loading } = useSelector(state => state.channels);
-  const { t } = useTranslation();
+  const dispatch = useDispatch()
+  const { t } = useTranslation()
 
   // Создаем схему валидации внутри компонента, чтобы использовать t
   const RenameChannelSchema = Yup.object().shape({
@@ -17,24 +15,24 @@ const RenameChannelModal = ({ show, onHide, channel }) => {
       .min(3, t('channels.errors.nameMin', { count: 3 }))
       .max(20, t('channels.errors.nameMax', { count: 20 }))
       .required(t('channels.errors.nameRequired')),
-  });
+  })
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
       await dispatch(renameChannel({ 
         id: channel.id, 
-        name: values.name 
-      })).unwrap();
-      resetForm();
-      onHide();
+        name: values.name, 
+      })).unwrap()
+      resetForm()
+      onHide()
     } catch (error) {
-      console.error(t('errors.internal.renameChannelError'), error);
+      console.error(t('errors.internal.renameChannelError'), error)
     } finally {
-      setSubmitting(false);
+      setSubmitting(false)
     }
-  };
+  }
 
-  if (!channel) return null;
+  if (!channel) return null
 
   return (
     <Modal show={show} onHide={onHide}>
@@ -46,8 +44,8 @@ const RenameChannelModal = ({ show, onHide, channel }) => {
         validationSchema={RenameChannelSchema}
         onSubmit={handleSubmit}
       >
-        {({ handleSubmit, isSubmitting }) => (
-          <Form onSubmit={handleSubmit}>
+        {({ handleSubmit: formikHandleSubmit, isSubmitting }) => (
+          <Form onSubmit={formikHandleSubmit}>
             <Modal.Body>
               <Form.Group>
                 <Form.Label>{t('channels.channelName')}</Form.Label>
@@ -73,7 +71,7 @@ const RenameChannelModal = ({ show, onHide, channel }) => {
         )}
       </Formik>
     </Modal>
-  );
-};
+  )
+}
 
-export default RenameChannelModal;
+export default RenameChannelModal

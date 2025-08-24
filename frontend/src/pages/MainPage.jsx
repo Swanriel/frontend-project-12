@@ -1,42 +1,42 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Button } from 'react-bootstrap';
-import { fetchChannels, setCurrentChannel } from '../store/slices/channelsSlice';
-import { fetchMessages } from '../store/slices/messagesSlice';
-import ChannelDropdown from '../components/ChannelDropdown';
-import AddChannelModal from '../components/modals/AddChannelModal';
-import RemoveChannelModal from '../components/modals/RemoveChannelModal';
-import RenameChannelModal from '../components/modals/RenameChannelModal';
-import ChatArea from '../components/ChatArea';
-import { useTranslation } from 'react-i18next';
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Button } from 'react-bootstrap'
+import { fetchChannels, setCurrentChannel } from '../store/slices/channelsSlice'
+import { fetchMessages } from '../store/slices/messagesSlice'
+import ChannelDropdown from '../components/ChannelDropdown'
+import AddChannelModal from '../components/modals/AddChannelModal'
+import RemoveChannelModal from '../components/modals/RemoveChannelModal'
+import RenameChannelModal from '../components/modals/RenameChannelModal'
+import ChatArea from '../components/ChatArea'
+import { useTranslation } from 'react-i18next'
 
 const MainPage = () => {
-  const dispatch = useDispatch();
-  const { items: channels, currentChannelId } = useSelector(state => state.channels);
-  const [showAddModal, setShowAddModal] = useState(false);
-  const [showRemoveModal, setShowRemoveModal] = useState(false);
-  const [showRenameModal, setShowRenameModal] = useState(false);
-  const [selectedChannel, setSelectedChannel] = useState(null);
-  const { t } = useTranslation();
+  const dispatch = useDispatch()
+  const { items: channels, currentChannelId } = useSelector((state) => state.channels)
+  const [showAddModal, setShowAddModal] = useState(false)
+  const [showRemoveModal, setShowRemoveModal] = useState(false)
+  const [showRenameModal, setShowRenameModal] = useState(false)
+  const [selectedChannel, setSelectedChannel] = useState(null)
+  const { t } = useTranslation()
 
   useEffect(() => {
-    dispatch(fetchChannels());
-    dispatch(fetchMessages());
-  }, [dispatch]);
+    dispatch(fetchChannels())
+    dispatch(fetchMessages())
+  }, [dispatch])
 
   const handleSelectChannel = (channel) => {
-    dispatch(setCurrentChannel(channel.id));
-  };
+    dispatch(setCurrentChannel(channel.id))
+  }
 
   const handleRenameChannel = (channel) => {
-    setSelectedChannel(channel);
-    setShowRenameModal(true);
-  };
+    setSelectedChannel(channel)
+    setShowRenameModal(true)
+  }
 
   const handleRemoveChannel = (channel) => {
-    setSelectedChannel(channel);
-    setShowRemoveModal(true);
-  };
+    setSelectedChannel(channel)
+    setShowRemoveModal(true)
+  }
 
   return (
     <div style={{ display: 'flex', height: '100vh' }}>
@@ -53,7 +53,7 @@ const MainPage = () => {
         </div>
         
         <ul style={{ listStyle: 'none', padding: 0 }}>
-          {channels.map(channel => (
+          {channels.map((channel) => (
             <li 
               key={channel.id} 
               style={{ 
@@ -61,7 +61,7 @@ const MainPage = () => {
                 cursor: 'pointer',
                 backgroundColor: channel.id === currentChannelId ? '#e3f2fd' : 'transparent',
                 borderRadius: '4px',
-                marginBottom: '4px'
+                marginBottom: '4px',
               }}
             >
               <ChannelDropdown 
@@ -94,7 +94,7 @@ const MainPage = () => {
         channel={selectedChannel}
       />
     </div>
-  );
-};
+  )
+}
 
-export default MainPage;
+export default MainPage
