@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next'
 
 const MainPage = () => {
   const dispatch = useDispatch()
-  const { items: channels, currentChannelId } = useSelector(state => state.channels)
+  const { items: channels, currentChannelId } = useSelector((state) => state.channels)
   const [showAddModal, setShowAddModal] = useState(false)
   const [showRemoveModal, setShowRemoveModal] = useState(false)
   const [showRenameModal, setShowRenameModal] = useState(false)
@@ -53,7 +53,7 @@ const MainPage = () => {
         </div>
         
         <ul style={{ listStyle: 'none', padding: 0 }}>
-          {channels.map(channel => (
+          {channels.map((channel) => (
             <li 
               key={channel.id} 
               style={{ 

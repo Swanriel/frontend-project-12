@@ -18,23 +18,26 @@ export const sendNewMessage = createAsyncThunk(
     try {
       const originalText = messageData.body
       const filteredText = filterProfanity(originalText)
+      
       if (filteredText !== originalText) {
         toast.info(i18n.t('notifications.profanityFiltered'))
       }
 
-      const username = localStorage.getItem('username') || 'user' 
+      const username = localStorage.getItem('username') || 'user'
+      
       const messageToSend = {
         body: filteredText,
         channelId: messageData.channelId,
         username,
       }
 
-      const response = await api.post('/messages', messageToSend)     
+      const response = await api.post('/messages', messageToSend)
+      
       dispatch(fetchMessages())
+      
       toast.success(i18n.t('notifications.messageSent'))
       return response.data
-    } 
-      catch (error) {
+    } catch (error) {
       toast.error(error.response?.data?.message || i18n.t('notifications.error'))
       return rejectWithValue(error.response?.data || error.message)
     }

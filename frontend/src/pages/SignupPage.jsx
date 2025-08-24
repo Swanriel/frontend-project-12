@@ -33,23 +33,23 @@ const SignupPage = () => {
         username: values.username,
         password: values.password,
       })
-
+      
       const { token, username } = response.data
-
+      
       localStorage.setItem('token', token)
-      localStorage.setItem('username', username)
+      localStorage.setItem('username', username) 
       login(token, username)
       navigate('/')
     } catch (err) {
       let errorMessage = t('auth.errors.registrationError')
-
+      
       if (err.response?.status === 409) {
         errorMessage = t('auth.errors.userExists')
       } else if (!err.response) {
         errorMessage = t('notifications.networkError')
         toast.error(t('notifications.networkError'))
       }
-
+      
       setError(errorMessage)
     } finally {
       setSubmitting(false)
@@ -60,7 +60,7 @@ const SignupPage = () => {
     <div style={{ maxWidth: '400px', margin: '50px auto', padding: '20px' }}>
       <h2>{t('auth.signup')}</h2>
       {error && <div style={{ color: 'red', marginBottom: '15px' }}>{error}</div>}
-
+      
       <Formik
         initialValues={{ username: '', password: '', confirmPassword: '' }}
         validationSchema={SignupSchema}
@@ -70,10 +70,10 @@ const SignupPage = () => {
           <Form>
             <div style={{ marginBottom: '15px' }}>
               <label htmlFor="username">Имя пользователя:</label>
-              <Field
-                type="text"
-                id="username"
-                name="username"
+              <Field 
+                type="text" 
+                id="username" 
+                name="username" 
                 style={{ width: '100%', padding: '8px' }}
               />
               <ErrorMessage name="username" component="div" style={{ color: 'red' }} />
@@ -84,10 +84,10 @@ const SignupPage = () => {
                 {t('auth.password')}
                 :
               </label>
-              <Field
-                type="password"
-                id="password"
-                name="password"
+              <Field 
+                type="password" 
+                id="password" 
+                name="password" 
                 style={{ width: '100%', padding: '8px' }}
               />
               <ErrorMessage name="password" component="div" style={{ color: 'red' }} />
@@ -98,17 +98,17 @@ const SignupPage = () => {
                 {t('auth.confirmPassword')}
                 :
               </label>
-              <Field
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
+              <Field 
+                type="password" 
+                id="confirmPassword" 
+                name="confirmPassword" 
                 style={{ width: '100%', padding: '8px' }}
               />
               <ErrorMessage name="confirmPassword" component="div" style={{ color: 'red' }} />
             </div>
 
-            <button
-              type="submit"
+            <button 
+              type="submit" 
               disabled={isSubmitting}
               style={{ width: '100%', padding: '10px', marginBottom: '15px' }}
             >
