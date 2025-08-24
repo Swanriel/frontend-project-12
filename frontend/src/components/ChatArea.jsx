@@ -40,7 +40,8 @@ const ChatArea = () => {
       setTimeout(() => {
         dispatch(fetchMessages())
       }, 100)
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Ошибка отправки сообщения:', error)
     }
   }
@@ -74,11 +75,11 @@ const ChatArea = () => {
                 {t('chat.noMessages')}
               </div>
             )
-            :(
+          : (
               channelMessages.map(message => (
                 <div key={message.id} style={{ marginBottom: '10px' }}>
                   <strong>
-                      {message.username}
+                  {message.username}
                   :
                   </strong>
                   {' '}
