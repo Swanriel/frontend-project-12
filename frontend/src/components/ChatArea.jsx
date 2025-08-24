@@ -19,6 +19,7 @@ const ChatArea = () => {
 
     try {
       await dispatch(sendNewMessage({
+        
         body: newMessage.trim(),
         channelId: currentChannelId
       })).unwrap();
@@ -36,7 +37,7 @@ const ChatArea = () => {
       </div>
     );
   }
-
+// console.log(JSON.stringify(channelMessages,null,2));
   return (
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
       <div style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>

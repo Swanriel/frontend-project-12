@@ -8,6 +8,7 @@ export const fetchMessages = createAsyncThunk(
   'messages/fetchMessages',
   async () => {
     const response = await api.get('/messages');
+    console.log(JSON.stringify(response.data,null,2))
     return response.data;
   }
 );
@@ -23,9 +24,12 @@ export const sendNewMessage = createAsyncThunk(
         toast.info(i18n.t('notifications.profanityFiltered'));
       }
 
+      const username = localStorage.getItem('username') || 'user';
+      
       const messageToSend = {
         body: filteredText,
-        channelId: messageData.channelId
+        channelId: messageData.channelId,
+        username: username
       };
 
       const response = await api.post('/messages', messageToSend);
