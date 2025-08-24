@@ -79,7 +79,8 @@ const ChatArea = () => {
               channelMessages.map(message => (
                 <div key={message.id} style={{ marginBottom: '10px' }}>
                   <strong>
-                    {message.username}:
+                    {message.username}
+                    :
                   </strong>
                   {' '}
                   {message.body}
