@@ -93,13 +93,13 @@ const channelsSlice = createSlice({
         state.currentChannelId = action.payload.id
       })
       .addCase(removeChannel.fulfilled, (state, action) => {
-        state.items = state.items.filter((channel) => channel.id !== action.payload)
+        state.items = state.items.filter(channel => channel.id !== action.payload)
         if (state.currentChannelId === action.payload) {
           state.currentChannelId = state.items[0]?.id || null
         }
       })
       .addCase(renameChannel.fulfilled, (state, action) => {
-        const channel = state.items.find((ch) => ch.id === action.payload.id)
+        const channel = state.items.find(ch => ch.id === action.payload.id)
         if (channel) {
           channel.name = action.payload.name
         }
