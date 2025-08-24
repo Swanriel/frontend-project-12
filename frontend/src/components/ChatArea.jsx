@@ -5,21 +5,21 @@ import { useTranslation } from 'react-i18next'
 
 const ChatArea = () => {
   const dispatch = useDispatch()
-  const { items: channels, currentChannelId } = useSelector((state) => state.channels)
-  const { items: messages, sending } = useSelector((state) => state.messages)
+  const { items: channels, currentChannelId } = useSelector(state => state.channels)
+  const { items: messages, sending } = useSelector(state => state.messages)
   const [newMessage, setNewMessage] = useState('')
   const { t } = useTranslation()
 
-  const currentChannel = channels.find((channel) => channel.id === currentChannelId)
-  const channelMessages = messages.filter((message) => message.channelId === currentChannelId)
+  const currentChannel = channels.find(channel => channel.id === currentChannelId)
+  const channelMessages = messages.filter(message => message.channelId === currentChannelId)
 
   useEffect(() => {
     if (!currentChannelId) return
-    
+  
     const interval = setInterval(() => {
       dispatch(fetchMessages())
     }, 3000)
-    
+  
     return () => {
       clearInterval(interval)
     }
@@ -34,13 +34,14 @@ const ChatArea = () => {
         body: newMessage.trim(),
         channelId: currentChannelId,
       })).unwrap()
-      
+    
       setNewMessage('')
-      
+    
       setTimeout(() => {
         dispatch(fetchMessages())
       }, 100)
-    } catch (error) {
+    } catch (error) 
+    {
       console.error('Ошибка отправки сообщения:', error)
     }
   }
@@ -66,26 +67,26 @@ const ChatArea = () => {
           )
         </h3>
       </div>
-      
+    
       <div style={{ flex: 1, overflowY: 'auto', padding: '10px' }}>
         {channelMessages.length === 0
           ? (
-            <div style={{ textAlign: 'center', color: '#999', padding: '20px' }}>
-              {t('chat.noMessages')}
-            </div>
-          )
-          : (
-            channelMessages.map((message) => (
-              <div key={message.id} style={{ marginBottom: '10px' }}>
-                <strong>
-                  {message.username}
-                  :
-                </strong>
-                {' '}
-                {message.body}
+              <div style={{ textAlign: 'center', color: '#999', padding: '20px' }}>
+                {t('chat.noMessages')}
               </div>
-            ))
-          )}
+            )
+            : (
+              channelMessages.map(message => (
+                <div key={message.id} style={{ marginBottom: '10px' }}>
+                  <strong>
+                    {message.username}
+                  :
+                  </strong>
+                  {' '}
+                  {message.body}
+                </div>
+              ))
+            )}
       </div>
 
       <form onSubmit={handleSubmit} style={{ padding: '10px', borderTop: '1px solid #ccc' }}>
@@ -94,13 +95,13 @@ const ChatArea = () => {
             type="text"
             placeholder={t('chat.messagePlaceholder')}
             value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
+            onChange={e => setNewMessage(e.target.value)}
             style={{ flex: 1, padding: '8px' }}
             disabled={sending}
             aria-label="Новое сообщение"
           />
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             disabled={!newMessage.trim() || sending}
             style={{ padding: '8px 16px' }}
           >

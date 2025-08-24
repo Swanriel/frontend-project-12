@@ -21,9 +21,11 @@ const AddChannelModal = ({ show, onHide }) => {
       await dispatch(addChannel({ name: values.name })).unwrap()
       resetForm()
       onHide()
-    } catch (error) {
+    } catch (error)
+    {
       console.error(t('errors.internal.createChannelError'), error)
-    } finally {
+    } finally
+    {
       setSubmitting(false)
     }
   }
@@ -45,8 +47,8 @@ const AddChannelModal = ({ show, onHide }) => {
             <Modal.Body>
               <Form.Group>
                 <Form.Label>{t('channels.channelName')}</Form.Label>
-                <Field 
-                  name="name" 
+                <Field
+                  name="name"
                   as={Form.Control}
                   type="text"
                   autoFocus

@@ -26,7 +26,7 @@ const ChannelDropdown = ({ channel, onSelect, onRename, onRemove }) => {
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <button
         onClick={() => onSelect(channel)}
-        style={{ 
+        style={{
           cursor: 'pointer',
           flexGrow: 1,
           padding: '8px',
@@ -41,8 +41,8 @@ const ChannelDropdown = ({ channel, onSelect, onRename, onRemove }) => {
       </button>
       {channel.removable && (
         <Dropdown show={showDropdown} onToggle={setShowDropdown}>
-          <Dropdown.Toggle 
-            variant="link" 
+          <Dropdown.Toggle
+            variant="link"
             id={`dropdown-${channel.id}`}
             className="text-decoration-none text-dark p-0 border-0 bg-transparent"
             style={{ cursor: 'pointer' }}
@@ -53,7 +53,7 @@ const ChannelDropdown = ({ channel, onSelect, onRename, onRemove }) => {
             <Dropdown.Item onClick={() => handleAction('rename')}>
               {t('channels.rename')}
             </Dropdown.Item>
-            <Dropdown.Item 
+            <Dropdown.Item
               onClick={() => handleAction('remove')}
               className="text-danger"
             >

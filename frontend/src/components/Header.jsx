@@ -11,8 +11,8 @@ const Header = () => {
   }
 
   return (
-    <header style={{ 
-      padding: '10px 20px', 
+    <header style={{
+      padding: '10px 20px',
       borderBottom: '1px solid #ccc',
       display: 'flex',
       justifyContent: 'space-between',
@@ -20,10 +20,10 @@ const Header = () => {
       backgroundColor: '#f8f9fa',
     }}
     >
-      <Link 
-        to="/" 
-        style={{ 
-          textDecoration: 'none', 
+      <Link
+        to="/"
+        style={{
+          textDecoration: 'none',
           color: '#007bff',
           fontWeight: 'bold',
           fontSize: '18px',
@@ -33,7 +33,7 @@ const Header = () => {
       </Link>
 
       {user && (
-        <button 
+        <button
           onClick={handleLogout}
           style={{
             padding: '5px 15px',
