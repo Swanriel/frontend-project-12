@@ -40,8 +40,7 @@ const ChatArea = () => {
       setTimeout(() => {
         dispatch(fetchMessages())
       }, 100)
-    } catch (error) 
-    {
+    } catch (error) {
       console.error('Ошибка отправки сообщения:', error)
     }
   }
