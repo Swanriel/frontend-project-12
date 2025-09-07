@@ -16,33 +16,37 @@ function App() {
   return (
     <Provider store={store}>
       <AuthProvider>
-        <Router>
-          <Header />
-          <Routes>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignupPage />} />
-            <Route
-              path="/"
-              element={(
-                <ProtectedRoute>
-                  <MainPage />
-                </ProtectedRoute>
-              )}
+        <div className="app-container"> {/* Добавьте этот контейнер */}
+          <Router>
+            <Header className="header" /> {/* Добавьте класс если нужно */}
+            <div className="main-content"> {/* Основной контент */}
+              <Routes>
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/signup" element={<SignupPage />} />
+                <Route
+                  path="/"
+                  element={(
+                    <ProtectedRoute>
+                      <MainPage />
+                    </ProtectedRoute>
+                  )}
+                />
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </div>
+            <ToastContainer
+              position="top-right"
+              autoClose={3000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
             />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-          <ToastContainer
-            position="top-right"
-            autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-          />
-        </Router>
+          </Router>
+        </div>
       </AuthProvider>
     </Provider>
   )

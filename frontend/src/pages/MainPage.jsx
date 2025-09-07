@@ -39,7 +39,7 @@ const MainPage = () => {
   }
 
   return (
-    <div style={{ display: 'flex', height: 'calc(100vh - 60px)', overflow: 'hidden' }}>
+    <div style={{ display: 'flex', height: 'calc(100vh - 60px)', overflow: 'hidden', width: '100%', minWidth: '100%' }}>
       <div style={{ width: '20%', minWidth: '200px', borderRight: '1px solid #ccc', padding: '10px', overflowY: 'auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
           <h3>{t('channels.title')}</h3>
@@ -77,7 +77,13 @@ const MainPage = () => {
         </ul>
       </div>
 
-      <ChatArea />
+      <div style={{
+        flex: 1,
+        minWidth: '60%',
+        width: '100%'
+      }}>
+        <ChatArea />
+      </div>
 
       <AddChannelModal
         show={showAddModal}
