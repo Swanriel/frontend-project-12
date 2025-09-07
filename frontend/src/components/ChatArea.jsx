@@ -80,7 +80,8 @@ const ChatArea = () => {
 
       <div
         ref={messagesContainerRef}
-        style={{ flex: 1, overflowY: 'auto', padding: '10px', display: 'flex', flexDirection: 'column', minHeight: 0, maxHeight: 'calc(100vh - 200px)' }}>
+        style={{ flex: 1, overflowY: 'auto', padding: '10px', display: 'flex', flexDirection: 'column', minHeight: 0, maxHeight: 'calc(100vh - 200px)' }}
+      >
         {channelMessages.length === 0
           ? (
               <div style={{ textAlign: 'center', color: '#adb5bd', padding: '40px', flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
