@@ -77,11 +77,7 @@ const MainPage = () => {
         </ul>
       </div>
 
-      <div style={{
-        flex: 1,
-        minWidth: '60%',
-        width: '100%',
-      }}>
+      <div style={{ flex: 1, minWidth: '60%', width: '100%', }}>
         <ChatArea />
       </div>
 
