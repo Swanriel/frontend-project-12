@@ -63,7 +63,7 @@ const ChatArea = () => {
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#f8f9fa',
-      }}>
+        }}>
         <p style={{ color: '#6c757d' }}>{t('chat.noChannel')}</p>
       </div>
     )
@@ -76,23 +76,23 @@ const ChatArea = () => {
       flexDirection: 'column',
       minWidth: '60%',
       height: '100%',
-    }}>
+      }}>
       <div style={{
         padding: '10px 15px',
         borderBottom: '1px solid #dee2e6',
         backgroundColor: '#f8f9fa',
         flexShrink: 0,
-      }}>
+        }}>
         <h4 style={{ margin: 0, color: '#495057', fontSize: '16px' }}>
           #
           {' '}
           {currentChannel.name}
           {' '}
           <small style={{ color: '#6c757d', fontSize: '0.9em' }}>
-            (
-            {channelMessages.length}
-            )
-          </small>
+        (
+      {channelMessages.length}
+        )
+      </small>
         </h4>
       </div>
 
@@ -110,43 +110,43 @@ const ChatArea = () => {
       >
         {channelMessages.length === 0
           ? (
-            <div style={{
-              textAlign: 'center',
-              color: '#adb5bd',
-              padding: '40px',
-              flex: 1,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+              <div style={{
+                textAlign: 'center',
+                color: '#adb5bd',
+                padding: '40px',
+                flex: 1,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
             }}>
-              {t('chat.noMessages', 'Нет сообщений')}
-            </div>
-          )
+                {t('chat.noMessages', 'Нет сообщений')}
+              </div>
+            )
 
-          : (
-            <>
-              {channelMessages.map(message => (
-                <div
-                  key={message.id}
-                  style={{
-                    marginBottom: '12px',
-                    padding: '8px 12px',
-                    backgroundColor: '#f8f9fa',
-                    borderRadius: '8px',
-                    wordBreak: 'break-word',
-                  }}
-                >
-                  <strong style={{ color: '#495057' }}>
-                    {message.username}
-                    :
-                  </strong>
-                  {' '}
-                  <span style={{ color: '#212529' }}>{message.body}</span>
-                </div>
-              ))}
-              <div ref={messagesEndRef} />
-            </>
-          )}
+            : (
+              <>
+                {channelMessages.map(message => (
+                  <div
+                    key={message.id}
+                    style={{
+                      marginBottom: '12px',
+                      padding: '8px 12px',
+                      backgroundColor: '#f8f9fa',
+                      borderRadius: '8px',
+                      wordBreak: 'break-word',
+                    }}
+                  >
+                    <strong style={{ color: '#495057' }}>
+                          {message.username}
+                  :
+                    </strong>
+                    {' '}
+                    <span style={{ color: '#212529' }}>{message.body}</span>
+                  </div>
+                ))}
+                <div ref={messagesEndRef} />
+              </>
+            )}
       </div>
 
       <form
