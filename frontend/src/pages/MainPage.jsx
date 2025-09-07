@@ -39,8 +39,8 @@ const MainPage = () => {
   }
 
   return (
-    <div style={{ display: 'flex', height: '100vh' }}>
-      <div style={{ width: '250px', borderRight: '1px solid #ccc', padding: '10px' }}>
+    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
+      <div style={{ width: '20%', minWidth: '200px', borderRight: '1px solid #ccc', padding: '10px', overflowY: 'auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
           <h3>{t('channels.title')}</h3>
           <Button
@@ -59,9 +59,11 @@ const MainPage = () => {
               style={{
                 padding: '8px',
                 cursor: 'pointer',
-                backgroundColor: channel.id === currentChannelId ? '#e3f2fd' : 'transparent',
+                backgroundColor: channel.id === currentChannelId ? '#007bff' : '#f8f9fa',
+                color: channel.id === currentChannelId ? 'white' : 'black',
                 borderRadius: '4px',
                 marginBottom: '4px',
+                transition: 'background-color 0.2s'
               }}
             >
               <ChannelDropdown

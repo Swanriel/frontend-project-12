@@ -70,6 +70,7 @@ const LoginPage = () => {
                 id="username"
                 name="username"
                 style={{ width: '100%', padding: '8px' }}
+                autoComplete="off"
               />
               <ErrorMessage name="username" component="div" style={{ color: 'red' }} />
             </div>
@@ -84,6 +85,7 @@ const LoginPage = () => {
                 id="password"
                 name="password"
                 style={{ width: '100%', padding: '8px' }}
+                autoComplete="off"
               />
               <ErrorMessage name="password" component="div" style={{ color: 'red' }} />
             </div>

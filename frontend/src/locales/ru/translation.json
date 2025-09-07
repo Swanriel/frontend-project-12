@@ -41,6 +41,7 @@
     "save": "Сохранить",
     "delete": "Удалить",
     "channelName": "Имя канала",
+    "creatingChannel": "Создание нового канала для общения",
     "errors": {
       "nameRequired": "Обязательное поле",
       "nameMin": "Минимум {{count}} символа",

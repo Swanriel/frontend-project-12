@@ -78,6 +78,7 @@ const SignupPage = () => {
                 id="username"
                 name="username"
                 style={{ width: '100%', padding: '8px' }}
+                autoComplete="off"
               />
               <ErrorMessage name="username" component="div" style={{ color: 'red' }} />
             </div>
@@ -92,6 +93,7 @@ const SignupPage = () => {
                 id="password"
                 name="password"
                 style={{ width: '100%', padding: '8px' }}
+                autoComplete="off"
               />
               <ErrorMessage name="password" component="div" style={{ color: 'red' }} />
             </div>
@@ -106,6 +108,7 @@ const SignupPage = () => {
                 id="confirmPassword"
                 name="confirmPassword"
                 style={{ width: '100%', padding: '8px' }}
+                autoComplete="off"
               />
               <ErrorMessage name="confirmPassword" component="div" style={{ color: 'red' }} />
             </div>
