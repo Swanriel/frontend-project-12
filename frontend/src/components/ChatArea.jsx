@@ -46,6 +46,7 @@ const ChatArea = () => {
       })).unwrap()
 
       setNewMessage('')
+
       setTimeout(() => {
         dispatch(fetchMessages())
       }, 100)
@@ -71,18 +72,15 @@ const ChatArea = () => {
           {' '}
           {currentChannel.name}
           {' '}
-          <small style={{ color: '#6c757d', fontSize: '0.9em' }}>
           (
           {channelMessages.length}
           )
-          </small>
         </h4>
       </div>
 
       <div
         ref={messagesContainerRef}
-        style={{ flex: 1, overflowY: 'auto', padding: '10px', display: 'flex', flexDirection: 'column', minHeight: 0, maxHeight: 'calc(100vh - 200px)' }}
-      >
+        style={{ flex: 1, overflowY: 'auto', padding: '10px', display: 'flex', flexDirection: 'column', minHeight: 0, maxHeight: 'calc(100vh - 200px)' }}>
         {channelMessages.length === 0
           ? (
               <div style={{ textAlign: 'center', color: '#adb5bd', padding: '40px', flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -90,28 +88,20 @@ const ChatArea = () => {
               </div>
             )
           : (
-              <>
-                {channelMessages.map(message => (
-                  <div
-                    key={message.id}
-                    style={{ marginBottom: '12px', padding: '8px 12px', backgroundColor: '#f8f9fa', borderRadius: '8px', wordBreak: 'break-word' }}>
-                    <strong style={{ color: '#495057' }}>
-                      {message.username}
-                      :
-                    </strong>
-                    {' '}
-                    <span style={{ color: '#212529' }}>{message.body}</span>
-                  </div>
-                ))}
-                <div ref={messagesEndRef} />
-              </>
+              channelMessages.map(message => (
+                <div key={message.id} style={{ marginBottom: '12px', padding: '8px 12px', backgroundColor: '#f8f9fa', borderRadius: '8px', wordBreak: 'break-word' }}>
+                  <strong style={{ color: '#495057' }}>
+                    {message.username}
+                    :
+                  </strong>
+                  {' '}
+                  {message.body}
+                </div>
+              ))
             )}
       </div>
 
-      <form
-        onSubmit={handleSubmit}
-        style={{ padding: '12px 15px', borderTop: '1px solid #dee2e6', backgroundColor: '#f8f9fa', flexShrink: 0 }}
-      >
+      <form onSubmit={handleSubmit} style={{ padding: '12px 15px', borderTop: '1px solid #dee2e6', backgroundColor: '#f8f9fa', flexShrink: 0 }}>
         <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
           <input
             type="text"
