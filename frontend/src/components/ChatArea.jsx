@@ -57,13 +57,7 @@ const ChatArea = () => {
 
   if (!currentChannel) {
     return (
-      <div style={{
-        flex: 1,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#f8f9fa',
-      }}>
+      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f8f9fa' }}>
         <p style={{ color: '#6c757d' }}>{t('chat.noChannel')}</p>
       </div>
     )
@@ -77,36 +71,23 @@ const ChatArea = () => {
       minWidth: '60%',
       height: '100%',
     }}>
-      <div style={{
-        padding: '10px 15px',
-        borderBottom: '1px solid #dee2e6',
-        backgroundColor: '#f8f9fa',
-        flexShrink: 0,
-      }}>
+      <div style={{ padding: '10px 15px', borderBottom: '1px solid #dee2e6', backgroundColor: '#f8f9fa', flexShrink: 0 }}>
         <h4 style={{ margin: 0, color: '#495057', fontSize: '16px' }}>
           #
           {' '}
           {currentChannel.name}
           {' '}
-          <small style={{ color: '#6c757d', fontSize: '0.9em' }}>
+        <small style={{ color: '#6c757d', fontSize: '0.9em' }}>
               (
-            {channelMessages.length}
+              {channelMessages.length}
               )
-          </small>
+        </small>
         </h4>
       </div>
 
       <div
         ref={messagesContainerRef}
-        style={{
-          flex: 1,
-          overflowY: 'auto',
-          padding: '10px',
-          display: 'flex',
-          flexDirection: 'column',
-          minHeight: 0,
-          maxHeight: 'calc(100vh - 200px)',
-        }}
+        style={{ flex: 1, overflowY: 'auto', padding: '10px', display: 'flex', flexDirection: 'column', minHeight: 0, maxHeight: 'calc(100vh - 200px)' }}
       >
         {channelMessages.length === 0
           ? (
@@ -137,7 +118,7 @@ const ChatArea = () => {
                     }}
                   >
                     <strong style={{ color: '#495057' }}>
-                          {message.username}
+                      {message.username}
                   :
                     </strong>
                     {' '}
@@ -151,12 +132,7 @@ const ChatArea = () => {
 
       <form
         onSubmit={handleSubmit}
-        style={{
-          padding: '12px 15px',
-          borderTop: '1px solid #dee2e6',
-          backgroundColor: '#f8f9fa',
-          flexShrink: 0,
-        }}
+        style={{ padding: '12px 15px', borderTop: '1px solid #dee2e6', backgroundColor: '#f8f9fa', flexShrink: 0 }}
       >
         <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
           <input
