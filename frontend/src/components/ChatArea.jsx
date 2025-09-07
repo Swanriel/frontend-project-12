@@ -71,9 +71,9 @@ const ChatArea = () => {
           {' '}
           {currentChannel.name}
           {' '}
-            <small style={{ color: '#6c757d', fontSize: '0.9em' }}>
+          <small style={{ color: '#6c757d', fontSize: '0.9em' }}>
           (
-            {channelMessages.length}
+          {channelMessages.length}
           )
           </small>
         </h4>
@@ -89,17 +89,15 @@ const ChatArea = () => {
                 {t('chat.noMessages', 'Нет сообщений')}
               </div>
             )
-
           : (
               <>
                 {channelMessages.map(message => (
                   <div
                     key={message.id}
-                    style={{ marginBottom: '12px', padding: '8px 12px', backgroundColor: '#f8f9fa', borderRadius: '8px', wordBreak: 'break-word' }}
-                  >
+                    style={{ marginBottom: '12px', padding: '8px 12px', backgroundColor: '#f8f9fa', borderRadius: '8px', wordBreak: 'break-word' }}>
                     <strong style={{ color: '#495057' }}>
-                        {message.username}
-                    :
+                      {message.username}
+                      :
                     </strong>
                     {' '}
                     <span style={{ color: '#212529' }}>{message.body}</span>
