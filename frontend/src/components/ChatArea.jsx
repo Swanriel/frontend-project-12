@@ -88,11 +88,11 @@ const ChatArea = () => {
           {' '}
           {currentChannel.name}
           {' '}
-            <small style={{ color: '#6c757d', fontSize: '0.9em' }}>
+          <small style={{ color: '#6c757d', fontSize: '0.9em' }}>
               (
-                {channelMessages.length}
+            {channelMessages.length}
               )
-            </small>
+          </small>
         </h4>
       </div>
 
@@ -137,7 +137,7 @@ const ChatArea = () => {
                     }}
                   >
                     <strong style={{ color: '#495057' }}>
-                      {message.username}
+                          {message.username}
                   :
                     </strong>
                     {' '}
