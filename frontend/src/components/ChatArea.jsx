@@ -63,7 +63,7 @@ const ChatArea = () => {
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#f8f9fa',
-    }}>
+        }}>
         <p style={{ color: '#6c757d' }}>{t('chat.noChannel')}</p>
       </div>
     )
@@ -76,22 +76,22 @@ const ChatArea = () => {
       flexDirection: 'column',
       minWidth: '60%',
       height: '100%',
-  }}>
+      }}>
       <div style={{
         padding: '10px 15px',
         borderBottom: '1px solid #dee2e6',
         backgroundColor: '#f8f9fa',
         flexShrink: 0,
-    }}>
+        }}>
         <h4 style={{ margin: 0, color: '#495057', fontSize: '16px' }}>
           #
           {' '}
           {currentChannel.name}
           {' '}
-      <small style={{ color: '#6c757d', fontSize: '0.9em' }}>
-              (
+          <small style={{ color: '#6c757d', fontSize: '0.9em' }}>
+        (
       {channelMessages.length}
-              )
+        )
       </small>
         </h4>
       </div>
