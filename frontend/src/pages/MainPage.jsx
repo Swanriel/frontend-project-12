@@ -81,7 +81,7 @@ const MainPage = () => {
         flex: 1,
         minWidth: '60%',
         width: '100%',
-    }}>
+      }}>
         <ChatArea />
       </div>
 

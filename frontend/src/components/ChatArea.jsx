@@ -62,7 +62,7 @@ const ChatArea = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#f8f9fa'
+        backgroundColor: '#f8f9fa',
       }}>
         <p style={{ color: '#6c757d' }}>{t('chat.noChannel')}</p>
       </div>
@@ -88,9 +88,9 @@ const ChatArea = () => {
           {' '}
           {currentChannel.name}
           {' '}
-          <small style={{ color: '#6c757d', fontSize: '0.9em' }}>
+      <small style={{ color: '#6c757d', fontSize: '0.9em' }}>
               (
-                {channelMessages.length}
+            {channelMessages.length}
               )
           </small>
         </h4>
@@ -109,42 +109,42 @@ const ChatArea = () => {
         }}
       >
         {channelMessages.length === 0
-      ? (
-          <div style={{
-            textAlign: 'center',
-            color: '#adb5bd',
-            padding: '40px',
-            flex: 1,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-            {t('chat.noMessages', 'Нет сообщений')}
-          </div>
-        ) : (
-          <>
-            {channelMessages.map(message => (
-              <div
-                key={message.id}
-                style={{
-                  marginBottom: '12px',
-                  padding: '8px 12px',
-                  backgroundColor: '#f8f9fa',
-                  borderRadius: '8px',
-                  wordBreak: 'break-word',
-                }}
-              >
-                <strong style={{ color: '#495057' }}>
-                  {message.username}
-                  :
-                </strong>
-                {' '}
-                <span style={{ color: '#212529' }}>{message.body}</span>
+          ? (
+              <div style={{
+                textAlign: 'center',
+                color: '#adb5bd',
+                padding: '40px',
+                flex: 1,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+                {t('chat.noMessages', 'Нет сообщений')}
               </div>
-            ))}
-            <div ref={messagesEndRef} />
-          </>
-        )}
+            ) : (
+              <>
+                {channelMessages.map(message => (
+                  <div
+                    key={message.id}
+                    style={{
+                      marginBottom: '12px',
+                      padding: '8px 12px',
+                      backgroundColor: '#f8f9fa',
+                      borderRadius: '8px',
+                      wordBreak: 'break-word',
+                    }}
+                  >
+                    <strong style={{ color: '#495057' }}>
+                      {message.username}
+                  :
+                    </strong>
+                    {' '}
+                    <span style={{ color: '#212529' }}>{message.body}</span>
+                  </div>
+                ))}
+                <div ref={messagesEndRef} />
+              </>
+            )}
       </div>
 
       <form
