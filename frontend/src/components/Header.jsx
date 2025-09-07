@@ -22,7 +22,7 @@ const Header = () => {
       boxSizing: 'border-box',
       position: 'sticky',
       top: 0,
-      zIndex: 1000
+      zIndex: 1000,
     }}
     >
       <Link

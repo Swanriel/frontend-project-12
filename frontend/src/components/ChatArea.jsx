@@ -16,7 +16,7 @@ const ChatArea = () => {
   const channelMessages = messages.filter(message => message.channelId === currentChannelId)
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
   useEffect(() => {
@@ -57,10 +57,10 @@ const ChatArea = () => {
 
   if (!currentChannel) {
     return (
-      <div style={{ 
-        flex: 1, 
-        display: 'flex', 
-        alignItems: 'center', 
+      <div style={{
+        flex: 1,
+        display: 'flex',
+        alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#f8f9fa'
       }}>
@@ -70,18 +70,18 @@ const ChatArea = () => {
   }
 
   return (
-    <div style={{ 
-      flex: 1, 
-      display: 'flex', 
+    <div style={{
+      flex: 1,
+      display: 'flex',
       flexDirection: 'column',
       minWidth: '60%',
-      height: '100%'
+      height: '100%',
     }}>
-      <div style={{ 
-        padding: '10px 15px', 
+      <div style={{
+        padding: '10px 15px',
         borderBottom: '1px solid #dee2e6',
         backgroundColor: '#f8f9fa',
-        flexShrink: 0
+        flexShrink: 0,
       }}>
         <h4 style={{ margin: 0, color: '#495057', fontSize: '16px' }}>
           #
@@ -89,46 +89,49 @@ const ChatArea = () => {
           {currentChannel.name}
           {' '}
           <small style={{ color: '#6c757d', fontSize: '0.9em' }}>
-            ({channelMessages.length})
+              (
+                {channelMessages.length}
+              )
           </small>
         </h4>
       </div>
 
-      <div 
+      <div
         ref={messagesContainerRef}
-        style={{ 
-          flex: 1, 
-          overflowY: 'auto', 
+        style={{
+          flex: 1,
+          overflowY: 'auto',
           padding: '10px',
           display: 'flex',
           flexDirection: 'column',
           minHeight: 0,
-          maxHeight: 'calc(100vh - 200px)'
+          maxHeight: 'calc(100vh - 200px)',
         }}
       >
-        {channelMessages.length === 0 ? (
-          <div style={{ 
-            textAlign: 'center', 
-            color: '#adb5bd', 
+        {channelMessages.length === 0
+      ? (
+          <div style={{
+            textAlign: 'center',
+            color: '#adb5bd',
             padding: '40px',
             flex: 1,
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
           }}>
             {t('chat.noMessages', 'Нет сообщений')}
           </div>
         ) : (
           <>
             {channelMessages.map(message => (
-              <div 
-                key={message.id} 
-                style={{ 
+              <div
+                key={message.id}
+                style={{
                   marginBottom: '12px',
                   padding: '8px 12px',
                   backgroundColor: '#f8f9fa',
                   borderRadius: '8px',
-                  wordBreak: 'break-word'
+                  wordBreak: 'break-word',
                 }}
               >
                 <strong style={{ color: '#495057' }}>
@@ -144,13 +147,13 @@ const ChatArea = () => {
         )}
       </div>
 
-      <form 
-        onSubmit={handleSubmit} 
-        style={{ 
+      <form
+        onSubmit={handleSubmit}
+        style={{
           padding: '12px 15px',
           borderTop: '1px solid #dee2e6',
           backgroundColor: '#f8f9fa',
-          flexShrink: 0
+          flexShrink: 0,
         }}
       >
         <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
@@ -159,12 +162,12 @@ const ChatArea = () => {
             placeholder={t('chat.messagePlaceholder')}
             value={newMessage}
             onChange={e => setNewMessage(e.target.value)}
-            style={{ 
-              flex: 1, 
+            style={{
+              flex: 1,
               padding: '10px 12px',
               border: '1px solid #ced4da',
               borderRadius: '4px',
-              fontSize: '14px'
+              fontSize: '14px',
             }}
             disabled={sending}
             aria-label="Новое сообщение"
@@ -173,7 +176,7 @@ const ChatArea = () => {
           <button
             type="submit"
             disabled={!newMessage.trim() || sending}
-            style={{ 
+            style={{
               padding: '10px 20px',
               backgroundColor: newMessage.trim() && !sending ? '#007bff' : '#6c757d',
               color: 'white',
@@ -181,7 +184,7 @@ const ChatArea = () => {
               borderRadius: '4px',
               cursor: newMessage.trim() && !sending ? 'pointer' : 'not-allowed',
               fontSize: '14px',
-              fontWeight: '500'
+              fontWeight: '500',
             }}
           >
             {sending ? t('chat.sending') : t('chat.send')}

@@ -33,7 +33,10 @@ const AddChannelModal = ({ show, onHide }) => {
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
-        <Modal.Title>{t('channels.create')} канал</Modal.Title>
+        <Modal.Title>
+          {t('channels.create')}
+          канал
+        </Modal.Title>
       </Modal.Header>
       <Formik
         initialValues={{ name: '' }}
@@ -46,8 +49,8 @@ const AddChannelModal = ({ show, onHide }) => {
           <Form onSubmit={formikHandleSubmit}>
             <Modal.Body>
               <p style={{ marginBottom: '15px', color: '#666', fontSize: '14px' }}>
-            {t('channels.creatingChannel', 'Создание нового канала для общения')}
-          </p>
+                {t('channels.creatingChannel', 'Создание нового канала для общения')}
+              </p>
               <Form.Group>
                 <Form.Label>{t('channels.channelName')}</Form.Label>
                 <Field

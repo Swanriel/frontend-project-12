@@ -16,10 +16,10 @@ function App() {
   return (
     <Provider store={store}>
       <AuthProvider>
-        <div className="app-container"> {/* Добавьте этот контейнер */}
+        <div className="app-container">
           <Router>
-            <Header className="header" /> {/* Добавьте класс если нужно */}
-            <div className="main-content"> {/* Основной контент */}
+            <Header className="header" />
+            <div className="main-content">
               <Routes>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/signup" element={<SignupPage />} />

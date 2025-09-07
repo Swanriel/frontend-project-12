@@ -63,7 +63,7 @@ const MainPage = () => {
                 color: channel.id === currentChannelId ? 'white' : 'black',
                 borderRadius: '4px',
                 marginBottom: '4px',
-                transition: 'background-color 0.2s'
+                transition: 'background-color 0.2s',
               }}
             >
               <ChannelDropdown
@@ -80,8 +80,8 @@ const MainPage = () => {
       <div style={{
         flex: 1,
         minWidth: '60%',
-        width: '100%'
-      }}>
+        width: '100%',
+    }}>
         <ChatArea />
       </div>
 
