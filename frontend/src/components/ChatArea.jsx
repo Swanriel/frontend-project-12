@@ -64,13 +64,7 @@ const ChatArea = () => {
   }
 
   return (
-    <div style={{
-      flex: 1,
-      display: 'flex',
-      flexDirection: 'column',
-      minWidth: '60%',
-      height: '100%',
-    }}>
+    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: '60%', height: '100%' }}>
       <div style={{ padding: '10px 15px', borderBottom: '1px solid #dee2e6', backgroundColor: '#f8f9fa', flexShrink: 0 }}>
         <h4 style={{ margin: 0, color: '#495057', fontSize: '16px' }}>
           #
@@ -78,9 +72,7 @@ const ChatArea = () => {
           {currentChannel.name}
           {' '}
         <small style={{ color: '#6c757d', fontSize: '0.9em' }}>
-              (
-              {channelMessages.length}
-              )
+          ({channelMessages.length})
         </small>
         </h4>
       </div>
@@ -91,15 +83,7 @@ const ChatArea = () => {
       >
         {channelMessages.length === 0
           ? (
-              <div style={{
-                textAlign: 'center',
-                color: '#adb5bd',
-                padding: '40px',
-                flex: 1,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
+              <div style={{ textAlign: 'center', color: '#adb5bd', padding: '40px', flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 {t('chat.noMessages', 'Нет сообщений')}
               </div>
             )
@@ -109,13 +93,7 @@ const ChatArea = () => {
                 {channelMessages.map(message => (
                   <div
                     key={message.id}
-                    style={{
-                      marginBottom: '12px',
-                      padding: '8px 12px',
-                      backgroundColor: '#f8f9fa',
-                      borderRadius: '8px',
-                      wordBreak: 'break-word',
-                    }}
+                    style={{ marginBottom: '12px', padding: '8px 12px', backgroundColor: '#f8f9fa', borderRadius: '8px', wordBreak: 'break-word' }}
                   >
                     <strong style={{ color: '#495057' }}>
                       {message.username}
@@ -140,13 +118,7 @@ const ChatArea = () => {
             placeholder={t('chat.messagePlaceholder')}
             value={newMessage}
             onChange={e => setNewMessage(e.target.value)}
-            style={{
-              flex: 1,
-              padding: '10px 12px',
-              border: '1px solid #ced4da',
-              borderRadius: '4px',
-              fontSize: '14px',
-            }}
+            style={{ flex: 1, padding: '10px 12px', border: '1px solid #ced4da', borderRadius: '4px', fontSize: '14px' }}
             disabled={sending}
             aria-label="Новое сообщение"
             autoComplete="off"
@@ -154,16 +126,7 @@ const ChatArea = () => {
           <button
             type="submit"
             disabled={!newMessage.trim() || sending}
-            style={{
-              padding: '10px 20px',
-              backgroundColor: newMessage.trim() && !sending ? '#007bff' : '#6c757d',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: newMessage.trim() && !sending ? 'pointer' : 'not-allowed',
-              fontSize: '14px',
-              fontWeight: '500',
-            }}
+            style={{ padding: '10px 20px', backgroundColor: newMessage.trim() && !sending ? '#007bff' : '#6c757d', color: 'white', border: 'none', borderRadius: '4px', cursor: newMessage.trim() && !sending ? 'pointer' : 'not-allowed', fontSize: '14px', fontWeight: '500' }}
           >
             {sending ? t('chat.sending') : t('chat.send')}
           </button>
