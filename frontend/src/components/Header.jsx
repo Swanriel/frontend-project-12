@@ -18,6 +18,11 @@ const Header = () => {
       justifyContent: 'space-between',
       alignItems: 'center',
       backgroundColor: '#f8f9fa',
+      height: '60px',
+      boxSizing: 'border-box',
+      position: 'sticky',
+      top: 0,
+      zIndex: 1000
     }}
     >
       <Link

@@ -39,7 +39,7 @@ const MainPage = () => {
   }
 
   return (
-    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
+    <div style={{ display: 'flex', height: 'calc(100vh - 60px)', overflow: 'hidden' }}>
       <div style={{ width: '20%', minWidth: '200px', borderRight: '1px solid #ccc', padding: '10px', overflowY: 'auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
           <h3>{t('channels.title')}</h3>
